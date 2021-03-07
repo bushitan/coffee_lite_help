@@ -38,8 +38,8 @@ module.exports = {
 
 <form bindsubmit="submitConfirm">
     <view class="padding-lr">
-        <view wx:for="{{rule.fieldsets}}" wx:for-item="tab" wx:for-index="tabIndex"  wx:key>
-            <view class="cuIcon-titles margin-top  text-yellow">{{tab.name}}</view>
+        <view wx:for="{{rule.fieldsets}}" wx:for-item="tab" wx:for-index="tabIndex"  wx:key hidden="{{tabIndex != barIndex}}">
+            <view class="cuIcon-titles margin-top-xl  text-yellow">{{tab.name}}</view>
             <view wx:for="{{tab.fields}}" wx:for-item="field" wx:for-index="fieldIndex"  wx:key >        
                 <template is="number" data="{{ value:foo.getValue(node ,field.key ) ,field:field }}" wx:if="{{field.type=='number'}}"></template>
 
@@ -58,8 +58,8 @@ module.exports = {
 
 
 
-                <template is="foreign" data="{{ value:node[ field.key] , desc: node[ field.descKey],field:field }}" wx:if="{{field.type=='foreign'}}"></template>
-                <template is="m2m" data="{{ value:node[ field.key],field:field  }}"  wx:if="{{field.type=='m2m'}}"></template>
+                <template is="foreign" data="{{ value:foo.getValue(node ,field.key ) , desc: node[ field.descKey],field:field }}" wx:if="{{field.type=='foreign'}}"></template>
+                <template is="arrayForeign" data="{{ value:node[ field.key],field:field  }}"  wx:if="{{field.type=='arrayForeign'}}"></template>
                 
                 <template is="sku" data="{{ Attrs:foo.getValue(node ,field.key ),field:field }}" wx:if="{{field.type=='sku'}}"></template>
             </view>
@@ -67,15 +67,19 @@ module.exports = {
 
     </view>
 
-    <view class="cu-bar  foot  justify-center ">
-        <button class="cu-btn bg-yellow text-white" form-type="submit">修改</button>
+    <view class="cu-bar  foot  justify-center bg-white ">
+        <button class="cu-btn bg-yellow text-white " form-type="submit">新增</button>
+        <button class="cu-btn bg-yellow text-white margin-lr" form-type="submit">保存并继续编辑</button>
+        <button class="cu-btn bg-yellow text-white" form-type="submit">保存</button>
     </view>
 </form>
-
+<view class="pg-space-xxl"></view>
+<view class="pg-space-xxl"></view>
+<view class="pg-space-xxl"></view>
 
 <!-- 多对多 -->
-<template name="m2m"> 
-    <item  title="" desc="" icon="" isArrow=""  customClass="margin-top" iconClass="text-xl "> 
+<template name="arrayForeign"> 
+    <!-- <item  title="" desc="" icon="" isArrow=""  customClass="margin-top" iconClass="text-xl "> 
         <view class="" slot="title"> {{field.name}}  <text wx:if="{{value.length == 0 }}" class="text-gray">（数组无数据，请增加）</text></view>
         <view class=" text-black text-right" slot="desc"  >
             <button class="cu-btn sm bg-green light"
@@ -91,27 +95,58 @@ module.exports = {
             <view class="" slot="title">  {{index + 1 }} 、   </view>
             <view class="" slot="desc">  {{item.name}} <text class="text-gray">（id:{{item.id}}）</text>   </view>
         </item>     
+    </view>     -->
+
+    <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 
+        <view class="" slot="title"> {{field.name}}  <text wx:if="{{value.length == 0 }}" class="text-gray">（数组无数据，请增加）</text></view>
+        <view class=" text-black text-right" slot="desc"  >
+            <button class="cu-btn sm bg-green light"
+                catchtap="arrayForeignSelect"                 
+                data-model="{{field.model}}" 
+                data-type="{{field.type}}"                         
+                data-key="{{field.key}}" 
+                data-foreignlistkey="{{field.foreignListKey}}"  
+                data-foreignitemkey="{{field.foreignItemKey}}"  
+                data-index="{{index}}"
+                
+            >增加</button>
+        </view>   
+    </item>    
+     
+    <view wx:for="{{value}}" wx:key class="padding-lr">
+        <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top-sm" iconClass="text-xl "> 
+            <view class="" slot="title">  {{index + 1 }} 、{{item[ field.foreignItemKey]}}   </view>
+            <view class=" text-black text-right" slot="desc"  > 
+                <button class="cu-btn sm bg-grey "  
+                    catchtap="arrayForeignDel"                 
+                    data-model="{{field.model}}" 
+                    data-type="{{field.type}}"                         
+                    data-key="{{field.key}}" 
+                    data-foreignlistkey="{{field.foreignListKey}}"  
+                    data-foreignitemkey="{{field.foreignItemKey}}"  
+                    data-index="{{index}}"
+                >删除</button>
+            </view>   
+        </item>     
     </view>    
 </template>
-
-
-
 
 
 <!-- 外键-->
 <template name="foreign"> 
     <item  title="" desc="" icon="" isArrow="" customClass="margin-top" iconClass="text-xl "> 
         <view class="" slot="title">
-            {{field.name}}<text class="text-gray margin-left-xs" wx:if="{{desc}}">({{desc}})</text>
-            
+            {{field.name}}
+            <!-- <text class="text-gray margin-left-xs" wx:if="{{desc}}">({{desc}})</text> -->            
         </view>
         <view class=" text-black text-right" slot="desc"  >
-            <text class="text-gray margin-right-xs">（id:{{value}}）</text>
+            <text class="text-gray margin-right-xs"> {{value}}</text>
             <button class="cu-btn sm bg-green light"
-                catchtap="selectForeign"                     
-                data-model="{{field.model}}"                 
+                catchtap="foreignSelect"                     
+                data-model="{{field.model}}"   
+                data-type="{{field.type}}"              
                 data-key="{{field.key}}"             
-                data-desckey="{{field.descKey}}"  
+                data-foreignkey="{{field.foreignKey}}"  
             >选择</button>
         </view>   
     </item>         
@@ -158,7 +193,7 @@ module.exports = {
     </item>         
 </template>
 
-<!-- 数组图片 -->
+<!-- 图片列表 -->
 <template name="arrayImage"> 
 	<item customClass="  margin-top">
 		<view  slot="title">
@@ -184,7 +219,7 @@ module.exports = {
 </template>
 
 
-<!-- 数组文字 -->
+<!-- 文字列表 -->
 <template name="arrayText"> 
     <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 
         <view class="" slot="title"> {{field.name}}  <text wx:if="{{value.length == 0 }}" class="text-gray">（数组无数据，请增加）</text></view>
@@ -213,24 +248,24 @@ module.exports = {
     </view>    
 </template>
 
-
-<dialog show="{{showInputTextDialog}}" showBottom="{{false}}" title="内容输入">
-    <view class="bg-white" slot="content"> 
-        <form bindsubmit="inputTextConfirm">
-            <item  title="" desc="" icon="" isArrow="{{true}}" customClass="padding" iconClass="text-xl margin-right-xs"> 
-                <view class="" slot="title">内容</view> 
-                <input class=" text-gray text-right" slot="desc" name="text"  placeholder="请输入内容" placeholder-class="text-gray" ></input>   
-            </item>   
-            <view class="cu-bar bg-white justify-end"  >
-                <view class="action">
-                    <button class="cu-btn line-gray " catchtap="filterClose"  >取消</button>
-                    <button class="cu-btn bg-yellow text-white margin-left" form-type="submit">添加</button>
+<view wx:if="{{showInputTextDialog}}">
+    <dialog show="{{showInputTextDialog}}" showBottom="{{false}}" title="内容输入">
+        <view class="bg-white" slot="content"> 
+            <form bindsubmit="inputTextConfirm">
+                <item  title="" desc="" icon="" isArrow="{{true}}" customClass="padding" iconClass="text-xl margin-right-xs"> 
+                    <view class="" slot="title">内容</view> 
+                    <input class=" text-gray text-right" slot="desc" name="text"  placeholder="请输入内容" placeholder-class="text-gray" ></input>   
+                </item>   
+                <view class="cu-bar bg-white justify-end"  >
+                    <view class="action">
+                        <button class="cu-btn line-gray " catchtap="filterClose"  >取消</button>
+                        <button class="cu-btn bg-yellow text-white margin-left" form-type="submit">添加</button>
+                    </view>
                 </view>
-            </view>
-        </form>
-    </view>
-</dialog> 
-
+            </form>
+        </view>
+    </dialog> 
+</view>
 
 
 
@@ -240,7 +275,7 @@ module.exports = {
    <view class="bg-white">  
         <item    customClass="margin-top"  > 
             <view class="" slot="title">
-                SKU <text class="text-red"  hidden="{{field.isNull}}">*</text>                     
+               {{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text>                     
             </view>
             <view class=" text-black text-right" slot="desc"  > 
                 <button class="cu-btn sm bg-green light" catchtap="openSKUDialog">修改</button>

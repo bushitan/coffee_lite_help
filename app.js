@@ -52,5 +52,57 @@ App({
         StatusBar: "",
         Custom: "",
         CustomBar: "",
-    }
+    },
+
+    
+
+    getNodeValue (node, key) {
+        if (!node._id)   // 初始化为空，退出
+            return
+
+        var list = key.split("-")
+        var temp = node
+        //console.log(list)
+        for (var i = 0; i < list.length; i++) {
+            var k = list[i]
+            k = _checkNumber(k) // 将下标的字符串转数字
+            console.log("aaa:", i, k, temp[k])
+            temp = temp[k]
+        }
+        //console.log(temp)
+        return temp
+
+         function _checkNumber(k) {
+            var arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+            //console.log(arr.indexOf(k))
+            if (arr.indexOf(k) >= 0)
+                return parseInt(k)
+            else
+                return k
+        }
+    },
+    getNodeKey(node, key){
+        if (!node._id)   // 初始化为空，退出
+            return
+
+        var list = key.split("-")
+        var temp = ""
+        //console.log(list)
+        for (var i = 0; i < list.length; i++) {
+            var k = list[i]
+            temp += _checkNumber(k) // 将下标的字符串转数字 
+        }
+        //console.log(temp)
+        return temp
+
+        function _checkNumber(k) {
+            var arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+            //console.log(arr.indexOf(k))
+            if (arr.indexOf(k) >= 0)
+                return "[" + parseInt(k) + "]"
+            else
+                return "."+k
+        }
+    },
+
 })
