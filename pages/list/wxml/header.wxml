@@ -1,0 +1,35 @@
+
+    <view class="padding-sm flex justify-between align-center">
+        <view>
+            <text class="cuIcon-titles text-yellow"></text>
+            <text>{{rule.name}}列表</text>
+        </view>
+        <view>
+            <button class="cu-btn bg-gray sm" catchtap="filterOpen">筛选</button>
+        </view>
+    </view>
+
+    
+
+
+    <dialog show="{{showFilterDialog}}" showBottom="{{false}}" title="列表筛选">
+        <view class="bg-white" slot="content"> 
+            <form bindsubmit="filterConfirm">
+                <view wx:for="{{rule.filter}}">
+                    <item  title="" desc="" icon="" isArrow="{{true}}"   
+                        customClass="padding" iconClass="text-xl margin-right-xs"> 
+                        <view class="" slot="title">{{item.name}}</view>
+                        <input class=" text-gray text-right" slot="desc" 
+                            name="{{item.key}}"
+                            placeholder="选填" placeholder-class="text-gray" ></input>   
+                    </item>   
+                </view>
+                <view class="cu-bar bg-white justify-end"  >
+                    <view class="action">
+                        <button class="cu-btn line-gray " catchtap="filterClose"  >取消</button>
+                        <button class="cu-btn bg-yellow text-white margin-left" form-type="submit">查询</button>
+                    </view>
+                </view>
+            </form>
+        </view>
+    </dialog> 

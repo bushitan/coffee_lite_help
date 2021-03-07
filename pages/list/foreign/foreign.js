@@ -21,13 +21,12 @@ Component({
 
         
 
-        toDetail(e){
+        selectDetail(e){
             // console.log(e.currentTarget.dataset.detail_id)
             var detailId = e.currentTarget.dataset.detail_id
+            console.log(detailId)
             var url = this.data.rule.detailUrl + "?detail_id=" + detailId
-            wx.navigateTo({
-                url: url,
-            })
+            // wx.navigateBack()
         },
 
 

@@ -1,0 +1,43 @@
+
+
+    <!-- 基础数字 -->
+    <template name="number">
+        <text>{{number}}</text>
+    </template>
+
+
+    <!-- 基础文字 -->
+    <template name="text">
+        <text>{{text}}</text>
+    </template>
+
+
+    <!-- 图片 头像 -->
+    <template name="image">
+        <view>
+            <image src="{{src}}" class=" cu-avatar "></image>
+        </view>
+    </template>
+
+
+    <!-- 纯列表 标签 -->
+    <template name="array">
+        <text wx:for="{{list}}"   wx:key> {{item}}<text wx:if="{{index<list.length-1}}">,</text></text>
+    </template>
+
+    <!-- 对象列表，二维 -->
+    <template name="arrayObjText">
+        <view>
+            <text wx:for="{{list}}" wx:key> {{item[objKey]}} <text wx:if="{{index<list.length-1}}">,</text>  </text>
+        </view>
+    </template>
+
+
+    <!-- 对象列表，二维 -->
+    <template name="arrayObjImage">
+        <view>
+            <image wx:for="{{list}}" wx:key class="cu-avatar" src="{{item[objKey]}}" >  </image>
+        </view>
+    </template>
+
+

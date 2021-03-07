@@ -86,13 +86,10 @@ Component({
             await app.cloud.init().then(res => console.log(res))
 
 
-            var res = await app.admin.map[this.data.model].getDetail(this.data._id)
-            console.log(res)
-
-
-            // this.setData({
-            //     node : res.result.data
-            // })
+            var node = await app.admin.map[this.data.model].getDetail(this.data._id)
+            this.setData({
+                // node : node
+            })
         },
 
         // 编辑确定

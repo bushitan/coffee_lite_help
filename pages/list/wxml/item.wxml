@@ -1,0 +1,17 @@
+
+
+<import src="template.wxml"></import>
+
+<view class="{{index%2==0?'bg-gray':'bg-white'}} padding-tb-xs node flex align-center justify-center " 
+wx:for="{{rule.displayList}}" wx:key>
+
+    <template is="number" data="{{number:node[ item.key ]}}" wx:if="{{item.type=='number'}}"></template>
+    <template is="text" data="{{text:node[ item.key ]}}" wx:if="{{item.type=='text'}}"></template>
+
+    <template is="image" data="{{src:node[ item.key ]}}" wx:if="{{item.type=='image'}}"></template>
+
+    <template is="array" data="{{list:node[ item.key ]}}" wx:if="{{item.type=='array'}}"></template>
+
+    <template is="arrayObjText" data="{{list:node[ item.key ], objKey: item.objKey}}" wx:if="{{item.type=='arrayObjText'}}"></template>
+    <template is="arrayObjImage" data="{{list:node[ item.key ], objKey: item.objKey}}" wx:if="{{item.type=='arrayObjImage'}}"></template>
+</view>
