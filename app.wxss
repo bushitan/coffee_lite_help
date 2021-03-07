@@ -1,0 +1,55 @@
+/**app.wxss**/
+
+@import 'wxss/colorui/main.wxss';
+@import 'wxss/colorui/icon.wxss';
+@import '/wxss/theme.wxss';
+@import '/wxss/backdrop.wxss';
+@import '/wxss/pad_color.wxss';
+
+.pg-radius{
+    overflow: hidden;
+    border-radius: 10rpx;
+}
+
+
+.pg-swiper{  
+    width: 750rpx;
+    height: 600rpx;
+}
+.pg-space { height: 10px; }
+.pg-space-lg { height: 20px; }
+.pg-space-xl { height: 30px; }
+.pg-space-xxl { height: 60px; }
+.pg-space-sl { height: 120px; }
+
+
+.pg-arrow:after{
+    display: block;
+    width: 30rpx;
+    height: 30rpx;
+    color: var(--gray);
+    content: "\e6a3";
+    text-align: center;
+    font-size: 34rpx;
+    font-family: "cuIcon";
+    line-height: 30rpx
+}
+
+.pg-arrow-sm:after{
+    display: block;
+    width: 19rpx;
+    height: 19rpx;
+    color: var(--gray);
+    content: "\e6a3";
+    text-align: center;
+    font-size: 27rpx;
+    font-family: "cuIcon";
+    line-height: 19rpx
+    
+}
+
+
+.pg-mirror-vertical {
+    transform: rotateZ(180deg);   /* 垂直镜像翻转 */
+	transition-duration: 0.3s;
+}

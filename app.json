@@ -1,0 +1,56 @@
+{
+    "pages": [
+        "pages/detail/node/node",
+        "pages/base/index/index",
+        "pages/base/route/route",
+        "pages/index/index",
+        "pages/list/list/list",
+        "pages/logs/logs"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#efaf30",
+        "navigationBarTitleText": "小杯子运营助手",
+        "navigationBarTextStyle": "white"
+    },
+    "plugins": {
+        "liteCupPlugin": {
+            "version": "1.2.1",
+            "provider": "wxd19bbe9cb3b293b6"
+        }
+    },
+    "usingComponents": {
+        "dialog": "plugin://liteCupPlugin/dialog",
+        "dialog-cover": "plugin://liteCupPlugin/dialog-cover",
+        "notice": "plugin://liteCupPlugin/notice",
+        "item": "plugin://liteCupPlugin/item",
+        "item-image": "plugin://liteCupPlugin/item-image",
+        "nav-custom": "plugin://liteCupPlugin/nav-custom",
+        "nav-date": "plugin://liteCupPlugin/nav-date",
+        "bar": "plugin://liteCupPlugin/bar",
+        "bar-date": "plugin://liteCupPlugin/bar-date",
+        "tabbar": "plugin://liteCupPlugin/tabbar",
+        "menu-phone": "plugin://liteCupPlugin/menu-phone",
+        "menu-pad": "plugin://liteCupPlugin/menu-pad",
+        "product-detail": "plugin://liteCupPlugin/product-detail",
+        "product-sku": "plugin://liteCupPlugin/product-sku",
+        "product-list": "plugin://liteCupPlugin/product-list",
+        "product-bar": "plugin://liteCupPlugin/product-bar",
+        "order-mall": "plugin://liteCupPlugin/order-mall",
+        "order-number": "plugin://liteCupPlugin/order-number",
+        "order-customer": "plugin://liteCupPlugin/order-customer",
+        "order-detail": "plugin://liteCupPlugin/order-detail",
+        "order-seller-item": "plugin://liteCupPlugin/order-seller-item",
+        "order-seller-list": "plugin://liteCupPlugin/order-seller-list",
+        "order-customer-item": "plugin://liteCupPlugin/order-customer-item",
+        "order-customer-list": "plugin://liteCupPlugin/order-customer-list",
+        "coupon-item": "plugin://liteCupPlugin/coupon-item",
+        "card-image": "plugin://liteCupPlugin/card-image",
+        "common-swiper": "plugin://liteCupPlugin/swiper",
+        "store-node": "plugin://liteCupPlugin/store-node",
+        "store-item": "plugin://liteCupPlugin/store-item",
+        "store-list": "plugin://liteCupPlugin/store-list",
+        "store-map": "plugin://liteCupPlugin/store-map"
+    },
+    "sitemapLocation": "sitemap.json"
+}

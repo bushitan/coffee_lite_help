@@ -1,0 +1,337 @@
+
+/* 垂直镜像翻转 */
+.pad .pg-mirror-vertical {
+    transform: rotateZ(180deg);   
+	transition-duration: 0.3s;
+}
+
+.pad .cu-list.menu-avatar > .cu-item .content > view:first-child {
+	font-size:15rpx;
+	display:flex;
+	align-items:center
+}
+.pad .cu-list.menu > .cu-item .content {
+	font-size:15rpx;
+	line-height:1.6em;
+	flex:1
+}
+.pad .cu-avatar {
+	font-variant:small-caps;
+	margin:0;
+	padding:0;
+	display:inline-flex;
+	text-align:center;
+	justify-content:center;
+	align-items:center;
+	color:var(--white);
+	white-space:nowrap;
+	position:relative;
+	width:32rpx;
+	height:32rpx;
+	background-size:cover;
+	background-position:center;
+	vertical-align:middle;
+	font-size:1.5em
+}
+.pad .cu-avatar.sm {
+	width:24rpx;
+	height:24rpx;
+	font-size:1em
+}
+.pad .cu-avatar.lg {
+	width:48rpx;
+	height:48rpx;
+	font-size:2em
+}
+.pad .cu-avatar.xl {
+	width:64rpx;
+	height:64rpx;
+	font-size:2.5em
+}
+.pad .cu-avatar .avatar-text {
+	font-size:0.4em
+}
+.pad .text-xs {
+	font-size:10rpx
+}
+.pad .text-sm {
+	font-size:12rpx
+}
+.pad .text-df {
+	font-size:14rpx
+}
+.pad .text-lg {
+	font-size:16rpx
+}
+.pad .text-xl {
+	font-size:18rpx
+}
+.pad .text-xxl {
+	font-size:22rpx
+}
+.pad .text-sl {
+	font-size:40rpx
+}
+.pad .text-xsl {
+	font-size:60rpx
+}
+.pad .cu-btn {
+	font-size:14rpx;
+	height:32rpx;
+	padding:0 15rpx
+}
+.pad .cu-btn.sm {
+	padding:0 10rpx;
+	font-size:10rpx;
+	height:24rpx
+}
+.pad .cu-btn.lg {
+	padding:0 20rpx;
+	font-size:16rpx;
+	height:40rpx
+}
+.pad .cu-tag.badge {
+	border-radius:100rpx;
+	position:absolute;
+	top:-5rpx;
+	right:-5rpx;
+	font-size:10rpx;
+	padding:0rpx 5rpx;
+	height:14rpx
+}
+.pad .margin-0 {
+	margin:0
+}
+.pad .margin-xs {
+	margin:5rpx
+}
+.pad .margin-sm {
+	margin:10rpx
+}
+.pad .margin {
+	margin:15rpx
+}
+.pad .margin-lg {
+	margin:20rpx
+}
+.pad .margin-xl {
+	margin:25rpx
+}
+.pad .margin-top-xs {
+	margin-top:5rpx
+}
+.pad .margin-top-sm {
+	margin-top:10rpx
+}
+.pad .margin-top {
+	margin-top:15rpx
+}
+.pad .margin-top-lg {
+	margin-top:20rpx
+}
+.pad .margin-top-xl {
+	margin-top:25rpx
+}
+.pad .margin-right-xs {
+	margin-right:5rpx
+}
+.pad .margin-right-sm {
+	margin-right:10rpx
+}
+.pad .margin-right {
+	margin-right:15rpx
+}
+.pad .margin-right-lg {
+	margin-right:20rpx
+}
+.pad .margin-right-xl {
+	margin-right:25rpx
+}
+.pad .margin-bottom-xs {
+	margin-bottom:5rpx
+}
+.pad .margin-bottom-sm {
+	margin-bottom:10rpx
+}
+.pad .margin-bottom {
+	margin-bottom:15rpx
+}
+.pad .margin-bottom-lg {
+	margin-bottom:20rpx
+}
+.pad .margin-bottom-xl {
+	margin-bottom:25rpx
+}
+.pad .margin-left-xs {
+	margin-left:5rpx
+}
+.pad .margin-left-sm {
+	margin-left:10rpx
+}
+.pad .margin-left {
+	margin-left:15rpx
+}
+.pad .margin-left-lg {
+	margin-left:20rpx
+}
+.pad .margin-left-xl {
+	margin-left:25rpx
+}
+.pad .margin-lr-xs {
+	margin-left:5rpx;
+	margin-right:5rpx
+}
+.pad .margin-lr-sm {
+	margin-left:10rpx;
+	margin-right:10rpx
+}
+.pad .margin-lr {
+	margin-left:15rpx;
+	margin-right:15rpx
+}
+.pad .margin-lr-lg {
+	margin-left:20rpx;
+	margin-right:20rpx
+}
+.pad .margin-lr-xl {
+	margin-left:25rpx;
+	margin-right:25rpx
+}
+.pad .margin-tb-xs {
+	margin-top:5rpx;
+	margin-bottom:5rpx
+}
+.pad .margin-tb-sm {
+	margin-top:10rpx;
+	margin-bottom:10rpx
+}
+.pad .margin-tb {
+	margin-top:15rpx;
+	margin-bottom:15rpx
+}
+.pad .margin-tb-lg {
+	margin-top:20rpx;
+	margin-bottom:20rpx
+}
+.pad .margin-tb-xl {
+	margin-top:25rpx;
+	margin-bottom:25rpx
+}
+.pad .padding-0 {
+	padding:0
+}
+.pad .padding-xs {
+	padding:5rpx
+}
+.pad .padding-sm {
+	padding:10rpx
+}
+.pad .padding {
+	padding:15rpx
+}
+.pad .padding-lg {
+	padding:20rpx
+}
+.pad .padding-xl {
+	padding:25rpx
+}
+.pad .padding-top-xs {
+	padding-top:5rpx
+}
+.pad .padding-top-sm {
+	padding-top:10rpx
+}
+.pad .padding-top {
+	padding-top:15rpx
+}
+.pad .padding-top-lg {
+	padding-top:20rpx
+}
+.pad .padding-top-xl {
+	padding-top:25rpx
+}
+.pad .padding-right-xs {
+	padding-right:5rpx
+}
+.pad .padding-right-sm {
+	padding-right:10rpx
+}
+.pad .padding-right {
+	padding-right:15rpx
+}
+.pad .padding-right-lg {
+	padding-right:20rpx
+}
+.pad .padding-right-xl {
+	padding-right:25rpx
+}
+.pad .padding-bottom-xs {
+	padding-bottom:5rpx
+}
+.pad .padding-bottom-sm {
+	padding-bottom:10rpx
+}
+.pad .padding-bottom {
+	padding-bottom:15rpx
+}
+.pad .padding-bottom-lg {
+	padding-bottom:20rpx
+}
+.pad .padding-bottom-xl {
+	padding-bottom:25rpx
+}
+.pad .padding-left-xs {
+	padding-left:5rpx
+}
+.pad .padding-left-sm {
+	padding-left:10rpx
+}
+.pad .padding-left {
+	padding-left:15rpx
+}
+.pad .padding-left-lg {
+	padding-left:20rpx
+}
+.pad .padding-left-xl {
+	padding-left:25rpx
+}
+.pad .padding-lr-xs {
+	padding-left:5rpx;
+	padding-right:5rpx
+}
+.pad .padding-lr-sm {
+	padding-left:10rpx;
+	padding-right:10rpx
+}
+.pad .padding-lr {
+	padding-left:15rpx;
+	padding-right:15rpx
+}
+.pad .padding-lr-lg {
+	padding-left:20rpx;
+	padding-right:20rpx
+}
+.pad .padding-lr-xl {
+	padding-left:25rpx;
+	padding-right:25rpx
+}
+.pad .padding-tb-xs {
+	padding-top:5rpx;
+	padding-bottom:5rpx
+}
+.pad .padding-tb-sm {
+	padding-top:10rpx;
+	padding-bottom:10rpx
+}
+.pad .padding-tb {
+	padding-top:15rpx;
+	padding-bottom:15rpx
+}
+.pad .padding-tb-lg {
+	padding-top:20rpx;
+	padding-bottom:20rpx
+}
+.pad .padding-tb-xl {
+	padding-top:25rpx;
+	padding-bottom:25rpx
+}

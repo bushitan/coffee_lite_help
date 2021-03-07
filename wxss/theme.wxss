@@ -1,0 +1,50 @@
+
+.theme-red .theme-text{  color: var(--red); }
+.theme-red .theme-bg{ background-color: var(--red); }
+.theme-red .theme-line::after,
+.theme-red .theme-lines::after { border-color: var(--red); }
+.theme-red .theme-line,
+.theme-red .theme-lines { color: var(--red); }
+.theme-red  .backdrop-bg { background: rgba(229,77,66, 0.4); }
+
+
+.theme-yellow .theme-text{ color: var(--yellow); }
+.theme-yellow .theme-bg{ background-color: var(--yellow); }
+.theme-yellow .theme-line::after,
+.theme-yellow .theme-lines::after { border-color: var(--yellow); }
+.theme-yellow .theme-line,
+.theme-yellow .theme-lines { color: var(--yellow); }
+
+.theme-green .theme-text{ color: var(--green); }
+.theme-green .theme-bg{ background-color: var(--green); }
+.theme-green .theme-line::after,
+.theme-green .theme-lines::after { border-color: var(--green); }
+.theme-green .theme-line,
+.theme-green .theme-lines { color: var(--green); }
+
+.theme-pink .theme-text{ color: var(--pink); }
+.theme-pink .theme-bg{ background-color: var(--pink); }
+.theme-pink .theme-line::after,
+.theme-pink .theme-lines::after { border-color: var(--pink); }
+.theme-pink .theme-line,
+.theme-pink .theme-lines { color: var(--pink); }
+
+.theme-olive .theme-text{ color: var(--olive); }
+.theme-olive .theme-bg{ background-color: var(--olive); }
+.theme-olive .theme-line::after,
+.theme-olive .theme-lines::after { border-color: var(--olive); }
+.theme-olive .theme-line,
+.theme-olive .theme-lines { color: var(--olive); }
+
+
+
+
+
+
+.backdrop-orange {
+    background: rgba(243,123,29, 0.4); 
+}
+
+.backdrop-orange {
+    background: rgba(243,123,29, 0.4); 
+}

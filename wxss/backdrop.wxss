@@ -1,0 +1,89 @@
+
+
+
+.backdrop-xs,.backdrop-sm ,.backdrop-df,.backdrop-xl,.backdrop-xxl{
+    box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+    
+}
+
+.backdrop-xs {
+    backdrop-filter: blur(10px) opacity(80%); 
+
+}
+.backdrop-sm {
+    backdrop-filter: blur(10px) opacity(100%); 
+
+}
+.backdrop-df {
+
+    /* background: rgba(0,0,0, 0.4); */
+    
+    backdrop-filter: blur(15px) opacity(100%) ; 
+
+
+/* backdrop-filter: blur(30px)  brightness(100%) contrast(100%)  grayscale(100%)
+drop-shadow(4px 4px 10px blue)
+
+ hue-rotate(120deg)
+invert(70%)
+opacity(20%)
+ sepia(100%)
+ saturate(100%); */
+
+}
+.backdrop-xl {
+
+}
+.backdrop-xxl {
+
+}
+
+
+.backdrop-red {
+    background: rgba(229,77,66, 0.8); 
+    
+}
+.backdrop-red-2 {
+    background: rgba(229,77,66, 0.1); 
+}
+
+
+.backdrop-orange {
+    background: rgba(243,123,29, 0.7); 
+}
+
+.backdrop-yellow {
+    background: rgba(239,175,48, 0.6); 
+}
+
+.backdrop-black {
+    background: rgba(0,0,0, 0.05); 
+}
+
+.backdrop-white {
+    background: rgba(255,255,255, 0.3); 
+}
+
+
+
+
+
+
+/* 
+	--red: #e54d42;
+	--orange: #f37b1d;
+    --yellow: #efaf30;
+    --lightYellow:#f4c76f;
+	--olive: #8dc63f;
+	--green: #39b54a;
+	--cyan: #1cbbb4;
+	--blue: #1d2a6d;
+    
+	--purple: #6739b6;
+	--mauve: #9c26b0;
+	--pink: #e03997;
+	--brown: #a5673f;
+	--grey: #8799a3;
+	--black: #333333;
+	--darkGray: #666666;
+	--gray: #aaaaaa; */

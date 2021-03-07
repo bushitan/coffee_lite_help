@@ -1,0 +1,151 @@
+<!--pages/list/list.wxml--> 
+
+
+<!-- <view wx:for="{{displayList}}">
+    <item  title="" summary="" desc="" isIcon="{{true}}" isArrow="{{true}}" catchtap="clickItem" customClass="bg-white text-xl padding">
+   
+        <view slot="title"></view>
+        <view slot="desc">
+            <view class="cu-tag bg-red light margin-right"  catchtap="del" data-index="{{index}}">删除</view>
+            <view class="cu-tag bg-green light"  catchtap="editor" data-index="{{index}}">编辑</view>  
+        </view>  
+    </item>
+</view>
+<view wx:for="{{list}}">
+        
+    <item  title="" summary="" desc="" isIcon="{{true}}" isArrow="{{true}}" catchtap="clickItem" customClass="bg-white text-xl padding">
+     
+        <view class="cu-tag" slot="title">{{item.name}}</view>
+        <view slot="desc">
+            <view class="cu-tag bg-red light margin-right"  catchtap="del" data-index="{{index}}">删除</view>
+            <view class="cu-tag bg-green light"  catchtap="editor" data-index="{{index}}">编辑</view>  
+        </view>  
+    </item>
+</view> -->
+
+<view>
+    <view class="padding-sm flex justify-between align-center">
+        <view>
+            <text class="cuIcon-titles text-yellow"></text>
+            <text>{{rule.name}}列表</text>
+        </view>
+        <view>
+            <button class="cu-btn bg-gray sm" catchtap="filterOpen">筛选</button>
+        </view>
+    </view>
+
+    <view class="bg-white ">
+        <!-- <view class="grid col-{{index+1}} margin-bottom text-center" wx:for="{{5}}" wx:key>
+            <view class="{{index%2==0?'bg-cyan':'bg-blue'}} padding" wx:for="{{(index+1)*2}}" wx:key>{{index+1}}</view>
+        </view> -->
+        <view class="grid col-{{rule.displayList.length + 2 }}  text-center solid"  >
+            <!-- <view class="{{index%2==0?'bg-cyan':'bg-blue'}} padding" wx:for="{{displayList}}" wx:key>{{item.name}}</view> -->
+            <view class="bg-white padding-tb-xs "  >排序</view>    
+            <view class="{{index%2==0?'bg-gray':'bg-white'}} padding-tb-xs " wx:for="{{rule.displayList}}" wx:key>{{item.name}}</view>
+            <view class="{{rule.displayList.length%2==0?'bg-gray':'bg-white'}} padding-tb-xs "  >操作</view>      
+        </view>
+
+        <view wx:for="{{list}}" wx:key wx:for-item="node"  wx:for-index="nodeIndex" class=" text-sm" catchtap="editor" data-index="{{nodeIndex}}">
+            <view class="grid   col-{{rule.displayList.length + 2}}  text-center solid"  >
+            
+                <view class="bg-white padding-tb-xs node flex align-center justify-center text-df flex justify-around" > 
+                    <text class="cuIcon-top" catchtap="snTop"></text>
+                    <text class="cuIcon-down" catchtap="snDown"></text>
+                </view>
+                <view class="{{index%2==0?'bg-gray':'bg-white'}} padding-tb-xs node flex align-center justify-center " 
+                wx:for="{{rule.displayList}}" wx:key>
+
+                    <template is="number" data="{{number:node[ item.key ]}}" wx:if="{{item.type=='number'}}"></template>
+                    <template is="text" data="{{text:node[ item.key ]}}" wx:if="{{item.type=='text'}}"></template>
+
+                    <template is="image" data="{{src:node[ item.key ]}}" wx:if="{{item.type=='image'}}"></template>
+
+                    <template is="array" data="{{list:node[ item.key ]}}" wx:if="{{item.type=='array'}}"></template>
+
+                    <template is="arrayObjText" data="{{list:node[ item.key ], objKey: item.objKey}}" wx:if="{{item.type=='arrayObjText'}}"></template>
+                    <template is="arrayObjImage" data="{{list:node[ item.key ], objKey: item.objKey}}" wx:if="{{item.type=='arrayObjImage'}}"></template>
+                </view>
+
+                <view class="{{rule.displayList.length%2==0?'bg-gray':'bg-white'}} padding-tb-xs node flex align-center justify-center " >
+ 
+                    <button class="cu-btn bg-grey sm" catchtap="toDetail" data-detail_id="{{node._id}}">编辑</button> 
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="cu-bar  foot  justify-center text-xl">
+        <text class="cuIcon-back" hidden="{{pageIndex==1}}" catchtap="back"></text>
+        <text class="">{{pageIndex}}..</text>    
+        <text class="text-gray text-sm">共{{count}}页</text>
+        <text class="cuIcon-right " hidden="{{pageIndex == pageCount}}"  catchtap="frontPage"></text>
+        <input class="bg-gray margin-right-xs margin-left" style="width:60rpx;" bindinput="inputPageEvent" ></input>
+        <button class="cu-btn bg-gray sm">跳转</button>
+    </view>
+
+    <!-- 基础数字 -->
+    <template name="number">
+        <text>{{number}}</text>
+    </template>
+
+
+    <!-- 基础文字 -->
+    <template name="text">
+        <text>{{text}}</text>
+    </template>
+
+
+    <!-- 图片 头像 -->
+    <template name="image">
+        <view>
+            <image src="{{src}}" class=" cu-avatar "></image>
+        </view>
+    </template>
+
+
+    <!-- 纯列表 标签 -->
+    <template name="array">
+        <text wx:for="{{list}}"   wx:key> {{item}}<text wx:if="{{index<list.length-1}}">,</text></text>
+    </template>
+
+    <!-- 对象列表，二维 -->
+    <template name="arrayObjText">
+        <view>
+            <text wx:for="{{list}}" wx:key> {{item[objKey]}} <text wx:if="{{index<list.length-1}}">,</text>  </text>
+        </view>
+    </template>
+
+
+    <!-- 对象列表，二维 -->
+    <template name="arrayObjImage">
+        <view>
+            <image wx:for="{{list}}" wx:key class="cu-avatar" src="{{item[objKey]}}" >  </image>
+        </view>
+    </template>
+
+
+
+
+    <dialog show="{{showFilterDialog}}" showBottom="{{false}}" title="列表筛选">
+        <view class="bg-white" slot="content"> 
+            <form bindsubmit="filterConfirm">
+                <view wx:for="{{rule.filter}}">
+                    <item  title="" desc="" icon="" isArrow="{{true}}"   
+                        customClass="padding" iconClass="text-xl margin-right-xs"> 
+                        <view class="" slot="title">{{item.name}}</view>
+                        <input class=" text-gray text-right" slot="desc" 
+                            name="{{item.key}}"
+                            placeholder="选填" placeholder-class="text-gray" ></input>   
+                    </item>   
+                </view>
+                <view class="cu-bar bg-white justify-end"  >
+                    <view class="action">
+                        <button class="cu-btn line-gray " catchtap="filterClose"  >取消</button>
+                        <button class="cu-btn bg-yellow text-white margin-left" form-type="submit">查询</button>
+                    </view>
+                </view>
+            </form>
+        </view>
+    </dialog> 
+
+</view>
