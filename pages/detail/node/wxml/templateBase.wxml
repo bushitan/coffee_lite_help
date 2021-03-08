@@ -1,0 +1,97 @@
+
+<!-- 数字 -->
+<template name="number"> 
+    <item  title="" desc="" icon="" isArrow="{{!field.disabled}}" customClass="margin-top" iconClass="text-xl "> 
+        <view class="" slot="title">{{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text></view>
+        <input class=" text-black text-right" slot="desc" 
+            placeholder="{{field.desc}}" placeholder-class="text-gray" 
+            value="{{value}}"
+            bindinput="inputNumber"
+            data-key="{{field.key}}" 
+            type="digit"
+            disabled="{{field.disabled}}"></input>   
+    </item>         
+</template>
+
+<!-- 文本  name="{{field.formName}}" -->
+<template name="text"> 
+    <item  title="" desc="" icon="" isArrow="{{!field.disabled}}" customClass="margin-top" iconClass="text-xl "> 
+        <view class="" slot="title">{{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text></view>
+        <input class=" text-black text-right" slot="desc" 
+            placeholder="{{field.desc}}" placeholder-class="text-gray" 
+            value="{{value}}"            
+            bindinput="inputText"
+            data-key="{{field.key}}"
+            disabled="{{field.disabled}}"></input>   
+    </item>         
+</template>
+
+
+<!-- 图片 -->
+<template name="image"> 
+    <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 
+        <view class="" slot="title">
+            {{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text>
+            <image class="margin-left-xs cu-avatar lg" src="{{value}}"></image>            
+        </view>
+        <view class=" text-black text-right" slot="desc"  >
+            <button class="cu-btn sm bg-grey margin-right-sm" wx:if="{{value}}" catchtap="previewImage" data-src="{{value}}" >预览</button>
+            <button class="cu-btn sm bg-green light">上传</button>
+        </view>   
+    </item>         
+</template>
+
+<!-- 图片列表 -->
+<template name="arrayImage"> 
+	<item customClass="  margin-top">
+		<view  slot="title">
+			{{field.name}}
+		</view>
+		<view   slot="desc">
+			{{value.length}}/5
+		</view>
+	</item>
+	<view class="">
+		<view class="grid col-4 grid-square flex-sub">
+			<view class="bg-img" wx:for="{{value}}" wx:key="{{index}}" bindtap="previewImage" data-src="{{item}}">
+				<image src='{{item}}' mode='aspectFill'></image>
+				<view class="cu-tag bg-red" catchtap="delImage" data-index="{{index}}">
+					<text class="cuIcon-close"></text>
+				</view>
+			</view>
+			<view class="solids" bindtap="chooseImage" wx:if="{{value.length<5}}"  data-key="{{field.key}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>      
+</template>
+
+
+<!-- 文字列表 -->
+<template name="arrayText"> 
+    <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 
+        <view class="" slot="title"> {{field.name}}  <text wx:if="{{value.length == 0 }}" class="text-gray">（数组无数据，请增加）</text></view>
+        <view class=" text-black text-right" slot="desc"  >
+            <button class="cu-btn sm bg-green light"
+                catchtap="addText"                     
+                data-key="{{field.key}}" 
+                data-tabindex="{{tabIndex}}" 
+            >增加</button>
+        </view>   
+    </item>    
+     
+    <view wx:for="{{value}}" wx:key class="padding-lr">
+        <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top-sm" iconClass="text-xl "> 
+            <view class="" slot="title">  {{index + 1 }} 、{{item}}   </view>
+            <view class=" text-black text-right" slot="desc"  > 
+                <button class="cu-btn sm bg-grey "  
+                    catchtap="delText"                     
+                    data-key="{{field.key}}" 
+                    data-tabindex="{{tabIndex}}" 
+                    data-fieldindex="{{fieldIndex}}" 
+                    data-index="{{index}}"
+                >删除</button>
+            </view>   
+        </item>     
+    </view>    
+</template>

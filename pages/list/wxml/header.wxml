@@ -5,6 +5,7 @@
             <text>{{rule.name}}列表</text>
         </view>
         <view>
+            <button class="cu-btn bg-yellow light sm margin-right" catchtap="addNode">添加</button>
             <button class="cu-btn bg-gray sm" catchtap="filterOpen">筛选</button>
         </view>
     </view>

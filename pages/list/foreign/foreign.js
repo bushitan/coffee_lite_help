@@ -17,6 +17,7 @@ Component({
                 model: options.model 
             })
             this.onInit()
+            
         },
 
         

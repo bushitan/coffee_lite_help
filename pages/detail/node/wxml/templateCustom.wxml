@@ -1,0 +1,32 @@
+
+<!-- SKU展示编辑 -->
+<template name="sku"> 
+   <view class="bg-white">  
+        <item    customClass="margin-top"  > 
+            <view class="" slot="title">
+               {{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text>                     
+            </view>
+            <view class=" text-black text-right" slot="desc"  > 
+                <button class="cu-btn sm bg-green light" catchtap="openSKUDialog">修改</button>
+            </view>   
+        </item>  
+        <form bindsubmit="inpuSKUConfirm">
+            <view class="padding-bottom" wx:for="{{4}}" wx:key wx:for-item="attrItem" wx:for-index="attrIndex" wx:if="{{Attrs[attrIndex].attrName}}">
+                <item  title="" desc="" icon=""  customClass="padding-lr " > 
+                    <view class=" text-left text-bold text-right" slot="title"  >{{Attrs[attrIndex].attrName}}</view>   
+                </item>
+                <view class="flex" >
+                    <view class="padding-lr-sm" wx:for="{{4}}" wx:key wx:for-item="valueItem" wx:for-index="valueIndex">
+                        <input class="  text-center  bg-gray "  value="{{Attrs[attrIndex].attrVal[valueIndex].valueName || ''}}" disabled="false"></input>   
+                        <view class="  text-center bg-gray text-red "  wx:if="{{Attrs[attrIndex].attrVal[valueIndex].price}}">
+                            +{{Attrs[attrIndex].attrVal[valueIndex].price }}元
+                        </view>   
+                        <view class="  text-center bg-gray text-red "  wx:else>
+                            {{Attrs[attrIndex].attrVal[valueIndex].price == undefined ? '': Attrs[attrIndex].attrVal[valueIndex].price  }}
+                        </view>   
+                    </view>
+                </view>
+            </view>
+        </form>
+    </view>     
+</template>

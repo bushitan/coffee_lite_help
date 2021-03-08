@@ -1,0 +1,76 @@
+
+<!-- 多对多 -->
+<template name="arrayForeign"> 
+    <!-- <item  title="" desc="" icon="" isArrow=""  customClass="margin-top" iconClass="text-xl "> 
+        <view class="" slot="title"> {{field.name}}  <text wx:if="{{value.length == 0 }}" class="text-gray">（数组无数据，请增加）</text></view>
+        <view class=" text-black text-right" slot="desc"  >
+            <button class="cu-btn sm bg-green light"
+                catchtap="selectM2M"                     
+                data-model="{{field.model}}"                 
+                data-key="{{field.key}}"
+            >多选</button>
+        </view>   
+    </item>    
+     
+    <view wx:for="{{value}}" wx:key class="padding-lr">
+        <item  title="" desc="" icon=""  customClass="margin-top-sm" iconClass="text-xl "> 
+            <view class="" slot="title">  {{index + 1 }} 、   </view>
+            <view class="" slot="desc">  {{item.name}} <text class="text-gray">（id:{{item.id}}）</text>   </view>
+        </item>     
+    </view>     -->
+
+    <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 
+        <view class="" slot="title"> {{field.name}}  <text wx:if="{{value.length == 0 }}" class="text-gray">（数组无数据，请增加）</text></view>
+        <view class=" text-black text-right" slot="desc"  >
+            <button class="cu-btn sm bg-green light"
+                catchtap="arrayForeignSelect"                 
+                data-model="{{field.model}}" 
+                data-type="{{field.type}}"                         
+                data-key="{{field.key}}" 
+                data-foreignlistkey="{{field.foreignListKey}}"  
+                data-foreignitemkey="{{field.foreignItemKey}}"  
+                data-index="{{index}}"
+                
+            >增加</button>
+        </view>   
+    </item>    
+     
+    <view wx:for="{{value}}" wx:key class="padding-lr">
+        <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top-sm" iconClass="text-xl "> 
+            <view class="" slot="title">  {{index + 1 }} 、{{item[ field.foreignItemKey]}}   </view>
+            <view class=" text-black text-right" slot="desc"  > 
+                <button class="cu-btn sm bg-grey "  
+                    catchtap="arrayForeignDel"                 
+                    data-model="{{field.model}}" 
+                    data-type="{{field.type}}"                         
+                    data-key="{{field.key}}" 
+                    data-foreignlistkey="{{field.foreignListKey}}"  
+                    data-foreignitemkey="{{field.foreignItemKey}}"  
+                    data-index="{{index}}"
+                >删除</button>
+            </view>   
+        </item>     
+    </view>    
+</template>
+
+
+<!-- 外键-->
+<template name="foreign"> 
+    <item  title="" desc="" icon="" isArrow="" customClass="margin-top" iconClass="text-xl "> 
+        <view class="" slot="title">
+            {{field.name}}
+            <!-- <text class="text-gray margin-left-xs" wx:if="{{desc}}">({{desc}})</text> -->            
+        </view>
+        <view class=" text-black text-right" slot="desc"  >
+            <text class="text-gray margin-right-xs"> {{value}}</text>
+            <button class="cu-btn sm bg-green light"
+                catchtap="foreignSelect"                     
+                data-model="{{field.model}}"   
+                data-type="{{field.type}}"              
+                data-key="{{field.key}}"             
+                data-foreignkey="{{field.foreignKey}}"  
+            >选择</button>
+        </view>   
+    </item>         
+</template>
+

@@ -33,6 +33,9 @@ module.exports = {
 }
 </wxs>
 
+<import src="wxml/templateBase.wxml"></import>
+<import src="wxml/templateCustom.wxml"></import>
+<import src="wxml/templateForeign.wxml"></import>
 
 <bar list="{{rule.fieldsets}}" bg="bg-white" text="bg-yellow light" textUnselect="" bindclick="clickbar"></bar>
 
@@ -70,183 +73,14 @@ module.exports = {
     <view class="cu-bar  foot  justify-center bg-white ">
         <button class="cu-btn bg-yellow text-white " form-type="submit">新增</button>
         <button class="cu-btn bg-yellow text-white margin-lr" form-type="submit">保存并继续编辑</button>
-        <button class="cu-btn bg-yellow text-white" form-type="submit">保存</button>
+        <button class="cu-btn bg-yellow light text-white" form-type="submit">保存</button>
     </view>
 </form>
 <view class="pg-space-xxl"></view>
 <view class="pg-space-xxl"></view>
 <view class="pg-space-xxl"></view>
 
-<!-- 多对多 -->
-<template name="arrayForeign"> 
-    <!-- <item  title="" desc="" icon="" isArrow=""  customClass="margin-top" iconClass="text-xl "> 
-        <view class="" slot="title"> {{field.name}}  <text wx:if="{{value.length == 0 }}" class="text-gray">（数组无数据，请增加）</text></view>
-        <view class=" text-black text-right" slot="desc"  >
-            <button class="cu-btn sm bg-green light"
-                catchtap="selectM2M"                     
-                data-model="{{field.model}}"                 
-                data-key="{{field.key}}"
-            >多选</button>
-        </view>   
-    </item>    
-     
-    <view wx:for="{{value}}" wx:key class="padding-lr">
-        <item  title="" desc="" icon=""  customClass="margin-top-sm" iconClass="text-xl "> 
-            <view class="" slot="title">  {{index + 1 }} 、   </view>
-            <view class="" slot="desc">  {{item.name}} <text class="text-gray">（id:{{item.id}}）</text>   </view>
-        </item>     
-    </view>     -->
 
-    <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 
-        <view class="" slot="title"> {{field.name}}  <text wx:if="{{value.length == 0 }}" class="text-gray">（数组无数据，请增加）</text></view>
-        <view class=" text-black text-right" slot="desc"  >
-            <button class="cu-btn sm bg-green light"
-                catchtap="arrayForeignSelect"                 
-                data-model="{{field.model}}" 
-                data-type="{{field.type}}"                         
-                data-key="{{field.key}}" 
-                data-foreignlistkey="{{field.foreignListKey}}"  
-                data-foreignitemkey="{{field.foreignItemKey}}"  
-                data-index="{{index}}"
-                
-            >增加</button>
-        </view>   
-    </item>    
-     
-    <view wx:for="{{value}}" wx:key class="padding-lr">
-        <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top-sm" iconClass="text-xl "> 
-            <view class="" slot="title">  {{index + 1 }} 、{{item[ field.foreignItemKey]}}   </view>
-            <view class=" text-black text-right" slot="desc"  > 
-                <button class="cu-btn sm bg-grey "  
-                    catchtap="arrayForeignDel"                 
-                    data-model="{{field.model}}" 
-                    data-type="{{field.type}}"                         
-                    data-key="{{field.key}}" 
-                    data-foreignlistkey="{{field.foreignListKey}}"  
-                    data-foreignitemkey="{{field.foreignItemKey}}"  
-                    data-index="{{index}}"
-                >删除</button>
-            </view>   
-        </item>     
-    </view>    
-</template>
-
-
-<!-- 外键-->
-<template name="foreign"> 
-    <item  title="" desc="" icon="" isArrow="" customClass="margin-top" iconClass="text-xl "> 
-        <view class="" slot="title">
-            {{field.name}}
-            <!-- <text class="text-gray margin-left-xs" wx:if="{{desc}}">({{desc}})</text> -->            
-        </view>
-        <view class=" text-black text-right" slot="desc"  >
-            <text class="text-gray margin-right-xs"> {{value}}</text>
-            <button class="cu-btn sm bg-green light"
-                catchtap="foreignSelect"                     
-                data-model="{{field.model}}"   
-                data-type="{{field.type}}"              
-                data-key="{{field.key}}"             
-                data-foreignkey="{{field.foreignKey}}"  
-            >选择</button>
-        </view>   
-    </item>         
-</template>
-
-
-<!-- 数字 -->
-<template name="number"> 
-    <item  title="" desc="" icon="" isArrow="{{!field.disabled}}" customClass="margin-top" iconClass="text-xl "> 
-        <view class="" slot="title">{{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text></view>
-        <input class=" text-black text-right" slot="desc" 
-            placeholder="{{field.desc}}" placeholder-class="text-gray" 
-            value="{{value}}"
-            name="{{field.formName}}"
-            type="number"
-            disabled="{{field.disabled}}"></input>   
-    </item>         
-</template>
-
-<!-- 文本 -->
-<template name="text"> 
-    <item  title="" desc="" icon="" isArrow="{{!field.disabled}}" customClass="margin-top" iconClass="text-xl "> 
-        <view class="" slot="title">{{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text></view>
-        <input class=" text-black text-right" slot="desc" 
-            placeholder="{{field.desc}}" placeholder-class="text-gray" 
-            value="{{value}}"
-            name="{{field.formName}}"
-            disabled="{{field.disabled}}"></input>   
-    </item>         
-</template>
-
-
-<!-- 图片 -->
-<template name="image"> 
-    <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 
-        <view class="" slot="title">
-            {{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text>
-            <image class="margin-left-xs cu-avatar lg" src="{{value}}"></image>            
-        </view>
-        <view class=" text-black text-right" slot="desc"  >
-            <button class="cu-btn sm bg-grey margin-right-sm" wx:if="{{value}}" catchtap="previewImage" data-src="{{value}}" >预览</button>
-            <button class="cu-btn sm bg-green light">上传</button>
-        </view>   
-    </item>         
-</template>
-
-<!-- 图片列表 -->
-<template name="arrayImage"> 
-	<item customClass="  margin-top">
-		<view  slot="title">
-			{{field.name}}
-		</view>
-		<view   slot="desc">
-			{{value.length}}/5
-		</view>
-	</item>
-	<view class="">
-		<view class="grid col-4 grid-square flex-sub">
-			<view class="bg-img" wx:for="{{value}}" wx:key="{{index}}" bindtap="previewImage" data-src="{{item}}">
-				<image src='{{item}}' mode='aspectFill'></image>
-				<view class="cu-tag bg-red" catchtap="delImage" data-index="{{index}}">
-					<text class="cuIcon-close"></text>
-				</view>
-			</view>
-			<view class="solids" bindtap="chooseImage" wx:if="{{value.length<5}}"  data-key="{{field.key}}">
-				<text class="cuIcon-cameraadd"></text>
-			</view>
-		</view>
-	</view>      
-</template>
-
-
-<!-- 文字列表 -->
-<template name="arrayText"> 
-    <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 
-        <view class="" slot="title"> {{field.name}}  <text wx:if="{{value.length == 0 }}" class="text-gray">（数组无数据，请增加）</text></view>
-        <view class=" text-black text-right" slot="desc"  >
-            <button class="cu-btn sm bg-green light"
-                catchtap="addText"                     
-                data-key="{{field.key}}" 
-                data-tabindex="{{tabIndex}}" 
-            >增加</button>
-        </view>   
-    </item>    
-     
-    <view wx:for="{{value}}" wx:key class="padding-lr">
-        <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top-sm" iconClass="text-xl "> 
-            <view class="" slot="title">  {{index + 1 }} 、{{item}}   </view>
-            <view class=" text-black text-right" slot="desc"  > 
-                <button class="cu-btn sm bg-grey "  
-                    catchtap="delText"                     
-                    data-key="{{field.key}}" 
-                    data-tabindex="{{tabIndex}}" 
-                    data-fieldindex="{{fieldIndex}}" 
-                    data-index="{{index}}"
-                >删除</button>
-            </view>   
-        </item>     
-    </view>    
-</template>
 
 <view wx:if="{{showInputTextDialog}}">
     <dialog show="{{showInputTextDialog}}" showBottom="{{false}}" title="内容输入">
@@ -270,37 +104,6 @@ module.exports = {
 
 
 
-<!-- SKU展示编辑 -->
-<template name="sku"> 
-   <view class="bg-white">  
-        <item    customClass="margin-top"  > 
-            <view class="" slot="title">
-               {{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text>                     
-            </view>
-            <view class=" text-black text-right" slot="desc"  > 
-                <button class="cu-btn sm bg-green light" catchtap="openSKUDialog">修改</button>
-            </view>   
-        </item>  
-        <form bindsubmit="inpuSKUConfirm">
-            <view class="padding-bottom" wx:for="{{4}}" wx:key wx:for-item="attrItem" wx:for-index="attrIndex" wx:if="{{Attrs[attrIndex].attrName}}">
-                <item  title="" desc="" icon=""  customClass="padding-lr " > 
-                    <view class=" text-left text-bold text-right" slot="title"  >{{Attrs[attrIndex].attrName}}</view>   
-                </item>
-                <view class="flex" >
-                    <view class="padding-lr-sm" wx:for="{{4}}" wx:key wx:for-item="valueItem" wx:for-index="valueIndex">
-                        <input class="  text-center  bg-gray "  value="{{Attrs[attrIndex].attrVal[valueIndex].valueName || ''}}" disabled="false"></input>   
-                        <view class="  text-center bg-gray text-red "  wx:if="{{Attrs[attrIndex].attrVal[valueIndex].price}}">
-                            +{{Attrs[attrIndex].attrVal[valueIndex].price }}元
-                        </view>   
-                        <view class="  text-center bg-gray text-red "  wx:else>
-                            {{Attrs[attrIndex].attrVal[valueIndex].price == undefined ? '': Attrs[attrIndex].attrVal[valueIndex].price  }}
-                        </view>   
-                    </view>
-                </view>
-            </view>
-        </form>
-    </view>     
-</template>
 <dialog show="{{showSkuDialog}}" showBottom="{{false}}" title="SKU价格编辑">
     <view class="bg-white" slot="content"> 
         <form bindsubmit="inpuSKUConfirm">
@@ -334,6 +137,19 @@ module.exports = {
         </form>
     </view>
 </dialog> 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- <template name="arrayText"> 
     <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 

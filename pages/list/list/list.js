@@ -6,6 +6,7 @@ Component({
     properties: {
     },
     data: {
+        isForeign:false,
     },
     behaviors: [app.behaviors.cms, listBehaviors],
  
@@ -13,13 +14,18 @@ Component({
     methods: {
 
         onLoad(options) {
+            
             this.setData({ 
-                model: options.model || "admin"
+                model: options.model || "admin",
+                isForeign: options.isForeign == 'true'? true : false,
             })
             this.onInit()
         },
 
-        
+        // 添加新节点
+        addNode(){
+            app.admin.map[this.data.model].addNode(this)
+        },
 
         toDetail(e){
             // console.log(e.currentTarget.dataset.detail_id)
@@ -30,6 +36,32 @@ Component({
             })
         },
 
+   
+        // 选择外键，返回
+        selectDetail(e){
+            // console.log(e.currentTarget.dataset.detail_id)
+            var detailId = e.currentTarget.dataset.detail_id
+            var list = this.data.list
+            var node 
+            for (var i = 0; i < list.length ; i++)
+                if (list[i]._id == detailId)
+                    node = list[i]
+
+            var name = app.getNodeValue(node, app.admin.map[this.data.model].displayName)
+            var prePage = getCurrentPages()[getCurrentPages().length - 2]
+            prePage.foreignCallback(node._id, name)  //回调
+            wx.navigateBack({}) // 返回
+
+
+            //TOOD
+            // console.log(app.admin.map[this.data.model].displayName)
+
+            // console.log(node)
+            // console.log(name)
+
+            // var url = this.data.rule.detailUrl + "?detail_id=" + detailId
+            // wx.navigateBack()
+        },
 
 
         /*************排序*********** */
