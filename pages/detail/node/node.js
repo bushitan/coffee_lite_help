@@ -96,7 +96,7 @@ Component({
             await app.cloud.init().then(res => console.log(res))
 
 
-            var node = await app.admin.map[this.data.model].getDetail(this.data._id)
+            var node = await app.admin.map[this.data.model].getDetail(this.data._id ,app)
             node['attrs'] = [
                     {
                         attrId: 0,
@@ -139,11 +139,27 @@ Component({
         },
 
 
-        // 编辑确定
-        submitConfirm(e){
-            app.admin.map[this.data.model].updateDetail(e,this.data.node)
+
+        // // 编辑确定
+        // submitConfirm(e){
+        //     app.admin.map[this.data.model].updateDetail(e,this.data.node)
+        // },
+
+        // 保存
+        save(){
+
+            //更新
+            app.admin.map[this.data.model].updateDetail(this,e,this.data.node)
         },
 
+        // 保存并返回
+        saveBack(){
+
+            //TODO 更新上一页面list
+            var prePage = getCurrentPages()[getCurrentPages().length - 2]
+            prePage.nodeCallBack()
+
+        },
 
 
 

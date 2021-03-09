@@ -75,14 +75,19 @@ Component({
         },
 
 
+        /*********更新列表********/
+        nodeCallBack(){},
+
+        // TODO 调用公共更新函数。将onInit拆分
 
 
 
-
-
-
-
-
+        // 新增节点
+        addNode(){
+            await app.admin.map[this.data.model].addNode(this) 
+            //TODO
+            更新到当前list内
+        },
 
 
 

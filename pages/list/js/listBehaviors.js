@@ -34,8 +34,8 @@ module.exports = Behavior({
             app.admin.initDB() // 初始化查询对象
 
             // 获取列表
-            var list = await app.admin.map[this.data.model].getList(this.data.model)
-            var count = await app.admin.map[this.data.model].getCount(this.data.model) 
+            var list = await app.admin.map[this.data.model].getList(app)
+            var count = await app.admin.map[this.data.model].getCount(app) 
 
             // 初始化配置
             this.setData({

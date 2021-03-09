@@ -52,6 +52,17 @@ module.exports = Behavior({
             })
         },
 
+        /**********布尔值编辑**********/
+        switchChange(e){
+            var value =  e.detail.value 
+            var key = e.currentTarget.dataset.key
+            var nodeKey = app.getNodeKey(this.data.node , key)
+            this.setData({ 
+                [ nodeKey]: value,  // 类似'node.fatherInfo[0].nickName' 11
+            })
+        },
+
+
 
         /**********文字列表编辑**********/
         // 确定添加文字，打开对话框
@@ -103,6 +114,8 @@ module.exports = Behavior({
                 }
             })
         },
+
+
 
     }
 })

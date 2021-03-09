@@ -41,6 +41,19 @@
     </item>         
 </template>
 
+
+<!--布尔值 -->
+<template name="boolean"> 
+    <item  title="" desc="" icon="" isArrow="{{field.isEditor}}" customClass="margin-top" iconClass="text-xl "> 
+        <view class="" slot="title">
+            {{field.name}} <text class="text-red"  hidden="{{field.isNull}}">*</text> 
+        </view>
+        <view class=" text-black text-right" slot="desc"  >
+            <switch checked="{{value}}" type="checkbox" bindchange="switchChange" data-key="{{field.key}}"/>
+        </view>   
+    </item>         
+</template>
+
 <!-- 图片列表 -->
 <template name="arrayImage"> 
 	<item customClass="  margin-top">
