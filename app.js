@@ -2,7 +2,6 @@
 
 var config = require("lib/behaviors/config.js")
 var cms = require("lib/behaviors/cms.js")
-var admin = require("lib/admin/admin.js")
 App({
     db: "",
     cloud:"", // 共享云数据库
@@ -10,10 +9,10 @@ App({
         config: config,
         cms: cms,
     },
-    admin: admin , // 后台管理配置文档
+    admin:  "", // 后台管理配置文档
     async onLaunch() {
         
-        this.admin.init(this)
+        // this.admin.init(this)
 
         //TODO 注册云开发
         // wx.cloud.init({

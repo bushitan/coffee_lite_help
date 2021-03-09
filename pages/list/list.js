@@ -1,5 +1,6 @@
 // pages_manager/seller/seller.js
-var listBehaviors = require("../js/listBehaviors.js")
+var headerBehaviors = require("js/header.js")
+var footerBehaviors = require("js/footer.js")
 var app = getApp()
 Component({
 
@@ -7,8 +8,24 @@ Component({
     },
     data: {
         isForeign:false,
+
+        model: "",// 数据模型
+        rule: {},// 规则
+        list: [], // 列表
+        listForeign:[], // 外键已选列表 
+        foreignIdList : [] , // 外键的id列表
+        count: 0,//数据总数
+
+
+        limit: 20,//每页数量
+        pageIndex: 1,//当前第几页
+        pageCount: 0, //总页数
+        inputPage: "", // 输入的页数
+
+        showFilterDialog: false,
     },
-    behaviors: [app.behaviors.cms, listBehaviors],
+    // behaviors: [app.behaviors.cms, listBehaviors],
+    behaviors: [headerBehaviors, footerBehaviors],
  
       
     methods: {
@@ -18,53 +35,65 @@ Component({
             this.setData({ 
                 model: options.model || "admin",
                 isForeign: options.isForeign == 'true'? true : false,
+                foreignIdList: options.foreignIdList || [] ,
             })
             this.onInit()
         },
 
+        async onInit() {
+            // // 初始化共享数据库
+            // app.cloud = new wx.cloud.Cloud({
+            //     // 资源方 AppID
+            //     resourceAppid: 'wx12dbd7b90d1260a8',
+            //     // 资源方环境 ID
+            //     resourceEnv: 'cup-wm-release',
+            // })
+            // await app.cloud.init().then(res => console.log(res))
+
+            // app.admin.initDB() // 初始化查询对象
+
+            // 获取列表
+            var list = await app.admin.map[this.data.model].getList( app,this)
+            var count = await app.admin.map[this.data.model].getCount(app, this)
+
+            // 初始化配置
+            this.setData({
+                list: list,
+                count: count,
+                // count: await app.admin.getCount(this.data.model),
+                rule: app.admin.map[this.data.model],
+                // displayList: this.data.userDispalyList,                
+            })
+        },
+
+
+
+ 
+        /*********公共内容 更新列表********/
         // 添加新节点
-        addNode(){
+        addNode() {
             app.admin.map[this.data.model].addNode(this)
         },
 
-        toDetail(e){
+        //节点更新后返回
+        nodeCallBack() { }, 
+
+        // TODO 调用公共更新函数。将onInit拆分
+
+        //  编辑节点
+        toNode(e){
             // console.log(e.currentTarget.dataset.detail_id)
-            var detailId = e.currentTarget.dataset.detail_id
-            var url = this.data.rule.detailUrl + "?detail_id=" + detailId
+            var nodeId = e.currentTarget.dataset.node_id
+            // var url = this.data.rule.detailUrl + "?detail_id=" + detailId
+            var url = "/pages/node/node?detail_id=" + nodeId
+ 
             wx.navigateTo({
                 url: url,
             })
         },
 
-   
-        // 选择外键，返回
-        selectDetail(e){
-            // console.log(e.currentTarget.dataset.detail_id)
-            var detailId = e.currentTarget.dataset.detail_id
-            var list = this.data.list
-            var node 
-            for (var i = 0; i < list.length ; i++)
-                if (list[i]._id == detailId)
-                    node = list[i]
 
-            var name = app.getNodeValue(node, app.admin.map[this.data.model].displayName)
-            var prePage = getCurrentPages()[getCurrentPages().length - 2]
-            prePage.foreignCallback(node._id, name)  //回调
-            wx.navigateBack({}) // 返回
-
-
-            //TOOD
-            // console.log(app.admin.map[this.data.model].displayName)
-
-            // console.log(node)
-            // console.log(name)
-
-            // var url = this.data.rule.detailUrl + "?detail_id=" + detailId
-            // wx.navigateBack()
-        },
-
-
-        /*************排序*********** */
+        /*************普通列表特有*********** */
         // 上移
         snTop() {
 
@@ -73,21 +102,28 @@ Component({
         snDown() {
 
         },
+   
 
+        /*********外键特有********/
+        // 选择外键，返回
+        selectNode(e){
+            // console.log(e.currentTarget.dataset.detail_id)
+            var nodeId = e.currentTarget.dataset.node_id
+            var list = this.data.list
+            var node 
+            for (var i = 0; i < list.length ; i++)
+                if (list[i]._id == nodeId)
+                    node = list[i]
 
-        /*********更新列表********/
-        nodeCallBack(){},
-
-        // TODO 调用公共更新函数。将onInit拆分
-
-
-
-        // 新增节点
-        addNode(){
-            await app.admin.map[this.data.model].addNode(this) 
-            //TODO
-            更新到当前list内
+            var name = app.getNodeValue(node, app.admin.map[this.data.model].displayName)
+            var prePage = getCurrentPages()[getCurrentPages().length - 2]
+            prePage.foreignCallback(node._id, name)  //回调
+            wx.navigateBack({}) // 返回
+ 
         },
+
+        // 获取已选参数，插入列表首位。
+
 
 
 

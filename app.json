@@ -1,11 +1,9 @@
 {
     "pages": [
-        "pages/base/index/index",
-        "pages/detail/node/node",
-        "pages/base/route/route",
+        "pages/route/route",
         "pages/index/index",
-        "pages/list/list/list",
-        "pages/list/foreign/foreign",
+        "pages/node/node", 
+        "pages/list/list",
         "pages/logs/logs"
     ],
     "window": {

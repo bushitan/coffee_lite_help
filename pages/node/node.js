@@ -55,12 +55,14 @@ Component({
             // ]
         },
 
-        Attrs:[], //SKU 的临时存放数组
+        // Attrs:[], //SKU 的临时存放数组
 
         showInputTextDialog:false, //输入内容
         currentInputKey : "",
 
         showSkuDialog: false, //SKU编辑
+        skuKey:"",//SKU的属性字段
+        skuAttrs:[],// SKU 的临时属性对象
 
         foreignCurrentEditor:{}, //当前编辑的外键参数
     },
@@ -74,7 +76,7 @@ Component({
 
             this.setData({
                 model: options.model || "admin",
-                _id: options.detail_id || "79550af260435f87089d72cd7e4db0a2",
+                _id: options.node_id || "79550af260435f87089d72cd7e4db0a2",
             })
 
             this.setData({
@@ -96,7 +98,7 @@ Component({
             await app.cloud.init().then(res => console.log(res))
 
 
-            var node = await app.admin.map[this.data.model].getDetail(this.data._id ,app)
+            var node = await app.admin.map[this.data.model].getNode(app , this , this.data._id)
             node['attrs'] = [
                     {
                         attrId: 0,
@@ -149,7 +151,7 @@ Component({
         save(){
 
             //更新
-            app.admin.map[this.data.model].updateDetail(this,e,this.data.node)
+            app.admin.map[this.data.model].updateDetail(app,this,  this.data.node)
         },
 
         // 保存并返回

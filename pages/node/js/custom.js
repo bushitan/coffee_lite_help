@@ -12,9 +12,18 @@ module.exports = Behavior({
         
          
         /*************SKU 编辑************/
-        openSKUDialog() { 
-            var Attrs = this.data.node.attrs
-            this.setData({ showSkuDialog: true, Attrs: Attrs})
+        openSKUDialog(e) { 
+            var skuKey = e.currentTarget.dataset.sku_key
+
+            var node = this.data.node
+            var skuAttrs = app.getNodeValue(node, skuKey)
+            // var Attrs = this.data.node.attrs
+            
+            this.setData({ 
+                showSkuDialog: true, 
+                skuAttrs: skuAttrs,
+                skuKey: skuKey,
+            })
              
         },
         closeSKUDialog() { this.setData({ showSkuDialog: false, }) },
@@ -32,7 +41,7 @@ module.exports = Behavior({
         inpuSKUConfirm(e){
             console.log(e)
             var obj = e.detail.value
-            var attrs = []
+            var skuAttrs = []
             for (var i = 0; i < 4; i++){
                 console.log(obj[i])
                 var attrName = obj[i]
@@ -51,14 +60,22 @@ module.exports = Behavior({
 
                     // 再添加大类
                     if (attrVal.length>0)
-                        attrs.push({
+                        skuAttrs.push({
                             attrId: i, attrName: attrName, attrVal: attrVal
                         })
                 }
                 
             }
-            console.log(attrs)
-            app.admin.map[this.data.model].updateSKU( this , attrs)
+
+            var node = this.data.node
+            var nodeKey = app.getNodeKey(node, this.data.skuKey)
+
+            console.log(skuAttrs)
+            this.setData({
+                [nodeKey]: skuAttrs,  // 类似'node.fatherInfo[0].nickName' 
+            })
+
+            // app.admin.map[this.data.model].updateSKU(app, this , attrs)
             this.closeSKUDialog()
         },
 

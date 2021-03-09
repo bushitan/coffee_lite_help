@@ -67,7 +67,7 @@ module.exports = {
                 <template is="foreign" data="{{ value:foo.getValue(node ,field.key ) , desc: node[ field.descKey],field:field }}" wx:if="{{field.type=='foreign'}}"></template>
                 <template is="arrayForeign" data="{{ value:node[ field.key],field:field  }}"  wx:if="{{field.type=='arrayForeign'}}"></template>
                 
-                <template is="sku" data="{{ Attrs:foo.getValue(node ,field.key ),field:field }}" wx:if="{{field.type=='sku'}}"></template>
+                <template is="sku" data="{{ skuAttrs:foo.getValue(node ,field.key ),field:field }}" wx:if="{{field.type=='sku'}}"></template>
             </view>
         </view>
 
@@ -84,6 +84,8 @@ module.exports = {
 <view class="pg-space-xxl"></view>
 
 
+
+<!-- 公共的dialog，做为输入框专用 -->
 
 <view wx:if="{{showInputTextDialog}}">
     <dialog show="{{showInputTextDialog}}" showBottom="{{false}}" title="内容输入">
@@ -115,16 +117,16 @@ module.exports = {
                 <item  title="" desc="" icon="" isArrow="{{true}}" customClass="padding-lr " > 
                     <view class="text-bold" slot="title">属性{{attrIndex+1}}</view> 
                     <input class=" text-left text-bold text-right" slot="desc" name="{{attrIndex}}" 
-                    value="{{Attrs[attrIndex].attrName}}"  placeholder="大类--(大/小类才生效)" placeholder-class="text-gray" ></input>   
+                    value="{{skuAttrs[attrIndex].attrName}}"  placeholder="大类--(大/小类才生效)" placeholder-class="text-gray" ></input>   
                 </item>
                 
                 <view class="flex" >
                     <view class="padding-lr-sm" wx:for="{{4}}" wx:key wx:for-item="valueItem" wx:for-index="valueIndex">
                         <input class="  text-center  bg-gray "   name="{{attrIndex + '_' +valueIndex + '_name'}}" 
-                        value="{{Attrs[attrIndex].attrVal[valueIndex].valueName || ''}}"  placeholder="小类" placeholder-class="text-gray" ></input>   
+                        value="{{skuAttrs[attrIndex].attrVal[valueIndex].valueName || ''}}"  placeholder="小类" placeholder-class="text-gray" ></input>   
 
                         <input class="  text-center bg-gray text-red "   name="{{attrIndex + '_' +valueIndex + '_price'}}" 
-                        value="{{Attrs[attrIndex].attrVal[valueIndex].price == undefined ? '': Attrs[attrIndex].attrVal[valueIndex].price  }}"  placeholder="加价" placeholder-class="text-gray" ></input>   
+                        value="{{skuAttrs[attrIndex].attrVal[valueIndex].price == undefined ? '': skuAttrs[attrIndex].attrVal[valueIndex].price  }}"  placeholder="加价" placeholder-class="text-gray" ></input>   
                     </view>
                 </view>
             </view>

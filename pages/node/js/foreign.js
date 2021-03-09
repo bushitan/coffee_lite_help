@@ -27,7 +27,7 @@ module.exports = Behavior({
             // console.log(dataset)
             wx.navigateTo({
                 // url: '/pages/list/foreign/foreign?model=' + model ,
-                url: '/pages/list/list/list?isForeign=true&model=' + model ,
+                url: '/pages/list/list?isForeign=true&model=' + model ,
             })
         },
 
@@ -46,7 +46,7 @@ module.exports = Behavior({
             // console.log(dataset)
             wx.navigateTo({
                 // url: '/pages/list/foreign/foreign?model=' + model,
-                url: '/pages/list/list/list?isForeign=true&model=' + model,
+                url: '/pages/list/list?isForeign=true&model=' + model,
             })
         },
 

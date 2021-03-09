@@ -1,0 +1,57 @@
+<!--pages/list/list.wxml--> 
+
+
+<view>
+
+    <include src="wxml/header.wxml"></include>
+
+    <view class="bg-white ">
+
+        <view class="grid col-{{rule.displayList.length + 2 }}  text-center solid"  >
+            <view class="bg-white padding-tb-xs "  >{{ isForeign ?"选项":"排序"}}</view>    
+            <view class="{{index%2==0?'bg-gray':'bg-white'}} padding-tb-xs " wx:for="{{rule.displayList}}" wx:key>{{item.name}}</view>
+            <view class="{{rule.displayList.length%2==0?'bg-gray':'bg-white'}} padding-tb-xs "  >操作</view>      
+        </view>
+
+        <view >
+            <!-- 已选 -->
+            <template is="list" data="{{rule:rule,list:list , isForeign:isForeign , isNew:false , isSelect:true}}"> </template>  
+            <!-- 新增 -->
+            <template is="list" data="{{rule:rule,list:list , isForeign:isForeign , isNew:true , isSelect:false}}"> </template>
+            <!-- 普通列表 -->
+            <template is="list" data="{{rule:rule,list:list , isForeign:isForeign , isNew:false , isSelect:false}}"> </template>
+        </view>
+    </view>
+
+    <include src="wxml/footer.wxml"></include>
+
+</view>
+
+
+<template name="list">
+
+    <!-- 正常 -->
+    <view wx:for="{{list}}" wx:key wx:for-item="node"  wx:for-index="nodeIndex" class=" text-sm" catchtap="editor" data-index="{{nodeIndex}}">
+        <view class="grid   col-{{rule.displayList.length + 2}}  text-center solid"  >
+            
+            <view class="bg-white padding-tb-xs node flex align-center  text-df  justify-around"  wx:if="{{isForeign}}">         
+                <button class="cu-btn bg-green light sm" catchtap="selectNode"  data-node_id="{{node._id}}" >选择</button>   
+            </view>
+
+            <view class="bg-white padding-tb-xs node flex align-center  text-df  justify-around" wx:if="{{isSelect}}" >         
+                <button class="cu-btn bg-grey light sm">已选</button>  
+            </view>
+
+            <view class="bg-white padding-tb-xs node flex align-center  text-df justify-around"  wx:else  > 
+               
+                    <text class="cuIcon-top" catchtap="snTop"></text>
+                    <text class="cuIcon-down" catchtap="snDown"></text>
+                
+            </view>
+            <include src="wxml/item.wxml"></include>
+
+            <text class="cu-tag badge" wx:if="{{isNew}}">新增</text>
+        </view>
+    </view>
+
+</template>
