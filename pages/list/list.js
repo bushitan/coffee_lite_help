@@ -66,6 +66,22 @@ Component({
             })
         },
 
+ 
+
+        /**
+         * 列表更新流程
+         * 1、初始化pageIndex和pageCount
+         * 2、刷新，根据pageIndex刷新当前页面
+         * 3、下一页，根据pageIndex 获取lit列表，pageIndex + 1
+         * 4、筛选操作，返回1
+         * 
+         * 列表查询方式
+         * 1、登陆获取列表
+         * 2、下一页，获取列表
+         * 3、筛选获取猎豹
+         * 4、node 编辑返回，更新当前pageIndex列表
+         * 5、上、下移，刷新当前pageIndex列表
+         */
 
 
  
