@@ -13,17 +13,13 @@
     
 
 
-    <dialog show="{{showFilterDialog}}" showBottom="{{false}}" title="列表筛选">
+    <dialog show="{{!showFilterDialog}}" showBottom="{{false}}" title="列表筛选">
         <view class="bg-white" slot="content"> 
             <form bindsubmit="filterConfirm">
-                <view wx:for="{{rule.filter}}">
-                    <item  title="" desc="" icon="" isArrow="{{true}}"   
-                        customClass="padding" iconClass="text-xl margin-right-xs"> 
-                        <view class="" slot="title">{{item.name}}</view>
-                        <input class=" text-gray text-right" slot="desc" 
-                            name="{{item.key}}"
-                            placeholder="选填" placeholder-class="text-gray" ></input>   
-                    </item>   
+                <view wx:for="{{rule.search}}">
+                    <template is="search_text" data="{{item:item}}" wx:if="{{item.type == 'text'}}"></template>
+                    <template is="search_text" data="{{item:item}}" wx:if="{{item.type == 'number'}}"></template>
+                    <template is="search_radio" data="{{item:item}}" wx:if="{{item.type == 'radio'}}"></template>
                 </view>
                 <view class="cu-bar bg-white justify-end"  >
                     <view class="action">
@@ -34,3 +30,36 @@
             </form>
         </view>
     </dialog> 
+
+    <!-- 文本筛选输入 -->
+    <template name="search_text">
+        <item  isArrow="{{true}}"    customClass="padding" iconClass="text-xl margin-right-xs"> 
+            <view class="" slot="title">{{item.name}}</view>
+            <input class=" text-gray text-right" slot="desc" name="{{item.key}}" placeholder="选填" placeholder-class="text-gray" ></input>   
+        </item>   
+    </template>
+    
+    <!-- 数字筛选输入 -->
+    <template name="search_number">
+        <item isArrow="{{true}}"    customClass="padding" iconClass="text-xl margin-right-xs"> 
+            <view class="" slot="title">{{item.name}}</view>
+            <input class=" text-gray text-right" slot="desc" name="{{item.key}}" placeholder="选填" placeholder-class="text-gray" mode="digit" ></input>   
+        </item>   
+    </template>
+
+    <!-- 选择性筛选输入 -->
+    <template name="search_radio">        
+        <item  customClass="padding" iconClass="text-xl margin-right-xs"> 
+            <view class="" slot="title">{{item.name}}</view>
+
+            <radio-group slot="desc" name="{{item.key}}"   >            
+                <view class="flex justify-between ">
+                    <view class="margin-left" wx:for="{{item.group}}" wx:for-item="radio" wx:key="{{radio.value}}">
+                        <radio value="{{radio.value}}" checked="{{ index == 0 ? true :false}}"/>
+                        <text class="block text-gray">{{radio.name}}</text>
+                    </view>
+                </view> 
+            </radio-group>
+
+        </item> 
+    </template>

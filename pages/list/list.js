@@ -81,6 +81,16 @@ Component({
          * 3、筛选获取猎豹
          * 4、node 编辑返回，更新当前pageIndex列表
          * 5、上、下移，刷新当前pageIndex列表
+         * 
+         * 状态：普通、外键
+         * 
+         * 筛选 ，输入条件，更新list，
+         * 
+
+         * 更新list model列表
+         * 更新selectList 已选列表
+         * 更新addList  新增列表
+         * 
          */
 
 

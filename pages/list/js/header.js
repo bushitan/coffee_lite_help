@@ -21,6 +21,10 @@ module.exports = Behavior({
         // 确认查询
         filterConfirm(e) {
             var form = e.detail.value
+            for(var key in form)
+                if( form[key] == '')
+                    delete form[key]
+            
             console.log(form)
             //TODO  查询后更新列表
         },

@@ -1,4 +1,5 @@
 {
+    "setting": {},
     "condition": {
         "plugin": {
             "list": []
@@ -19,9 +20,8 @@
                     "scene": null
                 },
                 {
-                    "id": -1,
-                    "name": "pages/list/list/list",
-                    "pathName": "pages/list/list/list",
+                    "name": "pages/list/list",
+                    "pathName": "pages/list/list",
                     "query": "",
                     "scene": null
                 },
@@ -35,6 +35,7 @@
                 {
                     "name": "pages/list/foreign/foreign  外键",
                     "pathName": "pages/list/foreign/foreign",
+                    "query": "",
                     "scene": null
                 }
             ]
