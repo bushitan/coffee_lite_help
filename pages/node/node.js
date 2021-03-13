@@ -79,8 +79,9 @@ Component({
                 _id: options.node_id || "79550af260435f87089d72cd7e4db0a2",
             })
 
+            var rule = app.admin.map[this.data.model]
             this.setData({
-                rule: app.admin.map[this.data.model],
+                rule: rule,
             })
 
             this.onInit()
@@ -88,17 +89,19 @@ Component({
 
         async onInit(){
 
-            // 初始化共享数据库
-            app.cloud = new wx.cloud.Cloud({
-                // 资源方 AppID
-                resourceAppid: 'wx12dbd7b90d1260a8',
-                // 资源方环境 ID
-                resourceEnv: 'cup-wm-release',
-            })
-            await app.cloud.init().then(res => console.log(res))
+            // // 初始化共享数据库
+            // app.cloud = new wx.cloud.Cloud({
+            //     // 资源方 AppID
+            //     resourceAppid: 'wx12dbd7b90d1260a8',
+            //     // 资源方环境 ID
+            //     resourceEnv: 'cup-wm-release',
+            // })
+            // await app.cloud.init().then(res => console.log(res))
 
 
-            var node = await app.admin.map[this.data.model].getNode(app , this , this.data._id)
+            var res = await app.admin.getNode(this.data.model , this.data._id)
+            var node = res.data
+            console.log(node)
             node['attrs'] = [
                     {
                         attrId: 0,
@@ -148,10 +151,12 @@ Component({
         // },
 
         // 保存
-        save(){
+        async save(){
 
             //更新
-            app.admin.map[this.data.model].updateDetail(app,this,  this.data.node)
+            debugger
+            var res = await app.admin.updateNode( this.data.model,this.data._id,  this.data.node)
+            console.log(res)
         },
 
         // 保存并返回
@@ -159,8 +164,8 @@ Component({
 
             //TODO 更新上一页面list
             var prePage = getCurrentPages()[getCurrentPages().length - 2]
-            prePage.nodeCallBack()
-
+            prePage.updateNodeCallback() // 保存后,更新前边的list
+            wx.navigateBack()
         },
 
 

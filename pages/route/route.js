@@ -54,7 +54,8 @@ Component({
             var foreignIdList = JSON.stringify( ["79550af260435f87089d72cd7e4db0a2"] )
             wx.redirectTo({
                 // url: '/pages/list/list',
-                url: '/pages/list/list?isForeign=true&model=admin&foreignIdList=' + foreignIdList,
+                // url: '/pages/list/list?isForeign=true&model=admin&foreignIdList=' + foreignIdList,
+                url: '/pages/node/node?detail_id=79550af260435f87089d72cd7e4db0a2',
 
                 
             })

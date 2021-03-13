@@ -16,7 +16,7 @@ Component({
         searchForm:{},//搜索的表单
 
         list: [], // 列表
-        listAdd:[], // 新增的列表
+        // listAdd:[], // 新增的列表
 
         foreignIdList : ["oOY_U1KTeDL3W3PtecWdVp1QXi-A"] , // 外键的id列表
         count: 0,//数据总数
@@ -77,13 +77,14 @@ Component({
 
           
             // TODO 初始化
-
+            var rule = app.admin.map[this.data.model]
             this.setData({
-                rule: app.admin.map[this.data.model],
-                search:app.admin.map[this.data.model].search,
+                rule:rule ,
+                search:rule.search || {},
+                pageLimit : rule.pageLimit || 20 // 详情列表长度，默认20
             })
             this.initIndex() //  初始化数量
-            this.getContentList() // 获取list
+            this.getList() // 获取list
 
             // this.getSelectList() // 外键测试
         },
@@ -102,12 +103,7 @@ Component({
         // 2个功能
         //   1、 获取普通列表， 部分需要去除wxOpenId为空的参数   _.exists(true)
         //   2、 获取搜索筛选后的列表， 指定 _.in([]) 
-        async getContentList(){
-            // var foreignData = this.data.foreignData || {}
-            // var searchData = this.data.searchData || {}
-            // var data = Object.assign(foreignData,searchData)
-
-            
+        async getList(){
             var res = await app.admin.getList({ 
                 model:this.data.model , 
                 pageIndex:this.data.pageIndex,
@@ -130,14 +126,22 @@ Component({
 
         // 添加新节点
         addNode() {
-            app.admin.map[this.data.model].addNode(this)
+            wx.showModal({
+                title: '是否添加新节点',
+                success : res=>{
+                    if(res.confirm){
+                        app.admin.addNode(this.data.model).then(res=> {
+                            wx.showToast({  title: res.msg })
+                            var _id = res.data  // 增加的ID
+                            console.log(_id )
+                            this.getList()
+                        })
+                    }
+                }
+            })
+           
         },
-
-        //节点更新后返回
-        nodeCallBack() {
-
-        }, 
-
+        
         // TODO 调用公共更新函数。将onInit拆分
 
         //  编辑节点
@@ -152,15 +156,21 @@ Component({
             })
         },
 
+        // 编辑节点后返回,更新列表
+        updateNodeCallback(){
+            this.getList() // 更新列表  
+        },
+
 
         /*************普通列表特有*********** */
-        // 上移
-        snTop() {
-
-        },
-        // 下移 
-        snDown() {
-
+        async updateSN(e){
+            // console.log(e.detail.value)
+            var value = e.detail.value             
+            console.log(JSON.stringify(value))
+            var res = await app.admin.updateSN( this.data.model , JSON.stringify(value))
+            console.log(res)
+            if(res.code == 0 )
+                this.getList()
         },
    
 
@@ -185,6 +195,7 @@ Component({
         // 获取已选参数，插入列表首位。
 
 
+        
 
 
 
@@ -208,7 +219,11 @@ Component({
 
 
 
+            // var foreignData = this.data.foreignData || {}
+            // var searchData = this.data.searchData || {}
+            // var data = Object.assign(foreignData,searchData)
 
+            
 
         // listSelect:[], // 外键已选列表 
  // // 获取已选外键列表

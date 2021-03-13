@@ -13,20 +13,33 @@ module.exports = Behavior({
         //上一页
         backPage(){
 
+            this.setData({pageIndex : this.data.pageIndex - 1 })
+            this.getList()
         },
         //下一页
         frontPage() {
-
+            this.setData({pageIndex : this.data.pageIndex + 1 })
+            this.getList()
         },
 
         // 输入确认
         inputPageEvent(e) {
-            console.log()
-            this.setData({ pageInput: e.detail.value })
+            var value = parseInt( e.detail.value )
+
+            this.setData({ pageInput: value })
         },
         // 确认跳转
         confirmToPage() {
+            var pageInput = this.data.pageInput
+            if( pageInput <= 0 || pageInput > this.data.pageCount ){
+                wx.showToast({
+                  title: '输入页码超出范围',
+                })
+                return
+            }
 
+            this.setData({pageIndex :pageInput - 1 })
+            this.getList()
         },
 
 

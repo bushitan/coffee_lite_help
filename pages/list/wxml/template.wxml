@@ -2,13 +2,13 @@
 
     <!-- 基础数字 -->
     <template name="number">
-        <text>{{number}}</text>
+        <text user-select="true">{{number}}</text>
     </template>
 
 
     <!-- 基础文字 -->
     <template name="text">
-        <text>{{text}}</text>
+        <text user-select="true"  style="width:100%;word-break: break-all;word-wrap: break-word;">{{text}}</text>
     </template>
 
 

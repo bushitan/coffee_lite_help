@@ -2,8 +2,8 @@
 
 <import src="template.wxml"></import>
 
-<view class="{{index%2==0?'bg-gray':'bg-white'}} padding-tb-xs node flex align-center justify-center " 
-wx:for="{{rule.displayList}}" wx:key>
+<view class="{{index%2==0?'bg-gray':'bg-white'}}  padding-tb-xs node flex align-center justify-center " 
+wx:for="{{rule.displayList}}" wx:key style="position: relative;">
 
     <template is="number" data="{{number:node[ item.key ]}}" wx:if="{{item.type=='number'}}"></template>
     <template is="text" data="{{text:node[ item.key ]}}" wx:if="{{item.type=='text'}}"></template>
