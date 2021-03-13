@@ -22,7 +22,7 @@ module.exports = Behavior({
         // 输入确认
         inputPageEvent(e) {
             console.log()
-            this.setData({ inputPage: e.detail.value })
+            this.setData({ pageInput: e.detail.value })
         },
         // 确认跳转
         confirmToPage() {

@@ -29,6 +29,31 @@ module.exports = Behavior({
             //TODO  查询后更新列表
         },
 
+        // 选择外键的搜索参数
+        foreignSelect(e){ 
+            var searchIndex = e.currentTarget.dataset.index
+            var model = e.currentTarget.dataset.model
+            this.setData({
+                searchIndex:searchIndex,
+            })
+
+            wx.navigateTo({
+                url: '/pages/list/list?isForeign=true&model=' + model ,
+            })
+        },
+
+        // search，可以选择id，按照id查询
+        // 更新search的字段
+        foreignCallback(_id, name){
+            
+            var search = this.data.search
+            search[ this.data.searchIndex ]._id = _id
+            search[ this.data.searchIndex ].value = name
+            this.setData({search:search})
+        },
+
+
+
 
 
         // onLoad: function (options) {

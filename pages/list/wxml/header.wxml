@@ -13,13 +13,14 @@
     
 
 
-    <dialog show="{{!showFilterDialog}}" showBottom="{{false}}" title="列表筛选">
+    <dialog show="{{showFilterDialog}}" showBottom="{{false}}" title="列表筛选">
         <view class="bg-white" slot="content"> 
             <form bindsubmit="filterConfirm">
-                <view wx:for="{{rule.search}}">
+                <view wx:for="{{search}}">
                     <template is="search_text" data="{{item:item}}" wx:if="{{item.type == 'text'}}"></template>
                     <template is="search_text" data="{{item:item}}" wx:if="{{item.type == 'number'}}"></template>
                     <template is="search_radio" data="{{item:item}}" wx:if="{{item.type == 'radio'}}"></template>
+                    <template is="search_foreign" data="{{item:item,index:index}}" wx:if="{{item.type == 'foreign'}}"></template>
                 </view>
                 <view class="cu-bar bg-white justify-end"  >
                     <view class="action">
@@ -63,3 +64,23 @@
 
         </item> 
     </template>
+
+        
+    <!-- 外键-->
+    <template name="search_foreign"> 
+        <item  title="" desc="" icon="" isArrow="" customClass="padding" iconClass="text-xl "> 
+            <view class="" slot="title">
+                {{item.name}}             
+            </view>
+            <view class=" text-black text-right" slot="desc"  >
+                <input name='father' value="{{item._id}}" hidden="{{true}}"></input>
+                <text class="text-gray margin-right-xs">{{item.value}}</text>
+                <button class="cu-btn sm bg-green light"
+                    catchtap="foreignSelect"                    
+                    data-model="{{item.model}}"                  
+                    data-index="{{index}}"  
+                >选择</button>
+            </view>   
+        </item>         
+    </template>
+

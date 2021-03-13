@@ -8,19 +8,24 @@ Component({
     },
     data: {
         isForeign:false,
+        isSearch:false,
 
         model: "",// 数据模型
         rule: {},// 规则
+        search:{}, // 搜索的配置文档
+        searchForm:{},//搜索的表单
+
         list: [], // 列表
-        listForeign:[], // 外键已选列表 
-        foreignIdList : [] , // 外键的id列表
+        listAdd:[], // 新增的列表
+
+        foreignIdList : ["oOY_U1KTeDL3W3PtecWdVp1QXi-A"] , // 外键的id列表
         count: 0,//数据总数
 
-
-        limit: 20,//每页数量
-        pageIndex: 1,//当前第几页
+        
+        pageLimit: 6,//每页数量
+        pageIndex: 0,//当前第几页
         pageCount: 0, //总页数
-        inputPage: "", // 输入的页数
+        pageInput: "", // 输入的页数
 
         showFilterDialog: false,
     },
@@ -35,38 +40,11 @@ Component({
             this.setData({ 
                 model: options.model || "admin",
                 isForeign: options.isForeign == 'true'? true : false,
-                foreignIdList: options.foreignIdList || [] ,
+                isSearch: options.isSearch == 'true'? true : false,
+                foreignIdList: options.foreignIdList ? JSON.parse( options.foreignIdList ) : [] ,
             })
             this.onInit()
         },
-
-        async onInit() {
-            // // 初始化共享数据库
-            // app.cloud = new wx.cloud.Cloud({
-            //     // 资源方 AppID
-            //     resourceAppid: 'wx12dbd7b90d1260a8',
-            //     // 资源方环境 ID
-            //     resourceEnv: 'cup-wm-release',
-            // })
-            // await app.cloud.init().then(res => console.log(res))
-
-            // app.admin.initDB() // 初始化查询对象
-
-            // 获取列表
-            var list = await app.admin.map[this.data.model].getList( app,this)
-            var count = await app.admin.map[this.data.model].getCount(app, this)
-
-            // 初始化配置
-            this.setData({
-                list: list,
-                count: count,
-                // count: await app.admin.getCount(this.data.model),
-                rule: app.admin.map[this.data.model],
-                // displayList: this.data.userDispalyList,                
-            })
-        },
-
- 
 
         /**
          * 列表更新流程
@@ -95,14 +73,70 @@ Component({
 
 
  
-        /*********公共内容 更新列表********/
+        async onInit() {
+
+          
+            // TODO 初始化
+
+            this.setData({
+                rule: app.admin.map[this.data.model],
+                search:app.admin.map[this.data.model].search,
+            })
+            this.initIndex() //  初始化数量
+            this.getContentList() // 获取list
+
+            // this.getSelectList() // 外键测试
+        },
+
+        
+        
+        /*********更新列表********/
+        initIndex(){
+            this.setData({
+                pageIndex: 0,//当前第几页
+                pageInput: "", // 输入的页数
+            })
+        },
+
+        // 获取主要的内容
+        // 2个功能
+        //   1、 获取普通列表， 部分需要去除wxOpenId为空的参数   _.exists(true)
+        //   2、 获取搜索筛选后的列表， 指定 _.in([]) 
+        async getContentList(){
+            // var foreignData = this.data.foreignData || {}
+            // var searchData = this.data.searchData || {}
+            // var data = Object.assign(foreignData,searchData)
+
+            
+            var res = await app.admin.getList({ 
+                model:this.data.model , 
+                pageIndex:this.data.pageIndex,
+                pageLimit:this.data.pageLimit,
+                foreignIdList: this.data.foreignIdList, //查询的时候逆序
+                search:this.data.searchForm,
+                sort:this.data.sort,
+            })          
+            console.log(res)   
+            this.setData({
+                list:res.data.list,
+                pageCount:res.data.pageCount, 
+            })
+        },
+
+       
+        
+        
+        /*********公共内容 节点操作********/
+
         // 添加新节点
         addNode() {
             app.admin.map[this.data.model].addNode(this)
         },
 
         //节点更新后返回
-        nodeCallBack() { }, 
+        nodeCallBack() {
+
+        }, 
 
         // TODO 调用公共更新函数。将onInit拆分
 
@@ -152,6 +186,75 @@ Component({
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // listSelect:[], // 外键已选列表 
+ // // 获取已选外键列表
+        // async getSelectList(){
+            
+        //     var foreignData = {
+        //         "foreignIdList": this.data.foreignIdList
+        //     }
+        //     var res = await app.admin.getList( this.data.model , 0 ,20, foreignData  ) 
+        //     console.log(res.data)
+        //     this.setData({
+        //         listSelect:res.data.list
+        //     })
+        // },
+ 
+
+
+        
+
+
+            // // 初始化共享数据库
+            // app.cloud = new wx.cloud.Cloud({
+            //     // 资源方 AppID
+            //     resourceAppid: 'wx12dbd7b90d1260a8',
+            //     // 资源方环境 ID
+            //     resourceEnv: 'cup-wm-release',
+            // })
+            // await app.cloud.init().then(res => console.log(res))
+
+
+           
+            // app.admin.initDB() // 初始化查询对象
+
+            
+            // // 获取列表
+            // var list = await app.admin.map[this.data.model].getList( app,this)
+            // var count = await app.admin.map[this.data.model].getCount(app, this)
+
+            // // 初始化配置
+            // this.setData({
+            //     list: list,
+            //     count: count,
+            //     // count: await app.admin.getCount(this.data.model),
+            //     rule: app.admin.map[this.data.model],
+            //     // displayList: this.data.userDispalyList,                
+            // })
 
 
 

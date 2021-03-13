@@ -29,7 +29,6 @@ Component({
         async onLoad(){
 
 
-            app.admin = admin
 
             // 初始化共享数据库
             app.cloud = new wx.cloud.Cloud({
@@ -40,15 +39,22 @@ Component({
             })
             await app.cloud.init().then(res => console.log(res))
 
+            
+            app.admin = admin
+
+            await app.admin.getMap()
+            
             this.nav()
         },
 
 
 
         nav(){
+
+            var foreignIdList = JSON.stringify( ["79550af260435f87089d72cd7e4db0a2"] )
             wx.redirectTo({
-                url: '/pages/list/list',
-                // url: '/pages/list/list?isForeign=true&model=admin',
+                // url: '/pages/list/list',
+                url: '/pages/list/list?isForeign=true&model=admin&foreignIdList=' + foreignIdList,
 
                 
             })

@@ -14,19 +14,10 @@
         </view>
 
         <view >
-            <!-- 已选 -->
-            <view wx:for="{{list}}" wx:key wx:for-item="node"  wx:for-index="nodeIndex" class=" text-sm" catchtap="editor" data-index="{{nodeIndex}}">
-                <view class="grid   col-{{rule.displayList.length + 2}}  text-center solid"  >
-                    <view class="bg-white padding-tb-xs node flex align-center  text-df  justify-around"  >         
-                        <button class="cu-btn bg-grey light sm">已选</button>  
-                    </view>
-                    <include src="wxml/item.wxml"></include>
-                </view>
-            </view>
 
             
             <!-- 新增 -->
-            <view wx:for="{{list}}" wx:key wx:for-item="node"  wx:for-index="nodeIndex" class=" text-sm" catchtap="editor" data-index="{{nodeIndex}}">
+            <view wx:for="{{listAdd}}" wx:key wx:for-item="node"  wx:for-index="nodeIndex" class=" text-sm" catchtap="editor" data-index="{{nodeIndex}}">
                 <view class="grid   col-{{rule.displayList.length + 2}}  text-center solid"  >                        
                     <view class="bg-white padding-tb-xs node flex align-center  text-df  justify-around"  wx:if="{{isForeign}}">         
                         <button class="cu-btn bg-green light sm" catchtap="selectNode"  data-node_id="{{node._id}}" >选择</button>   
@@ -40,8 +31,9 @@
             <!-- 普通列表 -->
             <view wx:for="{{list}}" wx:key wx:for-item="node"  wx:for-index="nodeIndex" class=" text-sm" catchtap="editor" data-index="{{nodeIndex}}">
                 <view class="grid   col-{{rule.displayList.length + 2}}  text-center solid"  >                 
-                    <view class="bg-white padding-tb-xs node flex align-center  text-df  justify-around"  wx:if="{{ isForeign}}">         
-                        <button class="cu-btn bg-green light sm" catchtap="selectNode"  data-node_id="{{node._id}}" >选择</button>   
+                    <view class="bg-white padding-tb-xs node flex align-center  text-df  justify-around"  wx:if="{{ isForeign}}">    
+                        <button class="cu-btn bg-grey light sm" wx:if="{{node.isSelect >= 0}}"  >已选</button>    
+                        <button class="cu-btn bg-green light sm" wx:else catchtap="selectNode"  data-node_id="{{node._id}}" >选择</button>   
                     </view> 
                     <view class="bg-white padding-tb-xs node flex align-center  text-df justify-around"  wx:else  >                     
                             <text class="cuIcon-top" catchtap="snTop"></text>
@@ -59,3 +51,15 @@
 </view>
 
  
+
+
+
+            <!-- 已选 -->
+            <!-- <view wx:for="{{listSelect}}" wx:key wx:for-item="node"  wx:for-index="nodeIndex" class=" text-sm" catchtap="editor" data-index="{{nodeIndex}}">
+                <view class="grid   col-{{rule.displayList.length + 2}}  text-center solid"  >
+                    <view class="bg-white padding-tb-xs node flex align-center  text-df  justify-around"  >         
+                        <button class="cu-btn bg-grey light sm">已选</button>  
+                    </view>
+                    <include src="wxml/item.wxml"></include>
+                </view>
+            </view> -->

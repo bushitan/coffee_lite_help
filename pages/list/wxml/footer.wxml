@@ -2,9 +2,9 @@
 
     
     <view class="cu-bar  foot  justify-center text-xl">
-        <text class="cuIcon-back" hidden="{{pageIndex==1}}" catchtap="back"></text>
-        <text class="">{{pageIndex}}..</text>    
-        <text class="text-gray text-sm">共{{count}}页</text>
+        <text class="cuIcon-back" hidden="{{pageIndex == 0}}" catchtap="back"></text>
+        <text class="">{{pageIndex + 1}}..</text>    
+        <text class="text-gray text-sm">共{{pageCount}}页</text>
         <text class="cuIcon-right " hidden="{{pageIndex == pageCount}}"  catchtap="frontPage"></text>
         <input class="bg-gray margin-right-xs margin-left" style="width:60rpx;" bindinput="inputPageEvent" ></input>
         <button class="cu-btn bg-gray sm">跳转</button>
