@@ -85,7 +85,7 @@ App({
             return
 
         var list = key.split("-")
-        var temp = "node."
+        var temp = "node"
         //console.log(list)
         for (var i = 0; i < list.length; i++) {
             var k = list[i]

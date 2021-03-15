@@ -3,30 +3,37 @@ module.exports = Behavior({
     data: { 
         
     },
- 
-
     //准备完成
     ready() { 
     },
     methods: {
-
-          
-
-
 
         /*************筛选*********** */
         // 打开对话框
         filterOpen() { this.setData({ showFilterDialog: true, }) },
         filterClose() { this.setData({ showFilterDialog: false, }) },
         // 确认查询
-        filterConfirm(e) {
+        async filterConfirm(e) {
             var form = e.detail.value
+            var search = this.data.search
+            debugger
+            
+            // 删除空的
             for(var key in form)
                 if( form[key] == '')
                     delete form[key]
             
-            console.log(form)
-            //TODO  查询后更新列表
+            // 把number类型的字符串input，变成数字
+            for( var i = 0; i< search.length ; i++)
+                if(search[i].type == "number")
+                    if( form.hasOwnProperty(search[i].key) == true ) 
+                        form[key] = Number( form[key] )                
+ 
+            // 查询
+            this.setData({ searchForm:form  })
+            this.initIndex()
+            await this.getList()
+            this.filterClose()
         },
 
         // 选择外键的搜索参数
@@ -51,6 +58,20 @@ module.exports = Behavior({
             search[ this.data.searchIndex ].value = name
             this.setData({search:search})
         },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

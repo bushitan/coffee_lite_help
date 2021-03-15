@@ -8,9 +8,7 @@ module.exports = Behavior({
     //准备完成
     ready() { 
     },
-    methods: {
-        
-         
+    methods: { 
 
         /*************外键 编辑************/
         //  选择外键
@@ -23,11 +21,10 @@ module.exports = Behavior({
                     key: e.currentTarget.dataset.key,
                     foreignKey: e.currentTarget.dataset.foreignkey,
                 }
-            })
-            // console.log(dataset)
-            wx.navigateTo({
-                url: '/pages/list/list?isForeign=true&model=' + model ,
-            })
+            }) 
+            var k = this.data.foreignCurrentEditor.foreignKey
+            var list = this.data.node[k]
+            this.toFoerigenModel(model, list)
         },
 
         // 增加外键列表
@@ -43,8 +40,21 @@ module.exports = Behavior({
                 }
             })
             // console.log(dataset)
+            var k = this.data.foreignCurrentEditor.foreignListKey
+            var list = this.data.node[k]
+           this.toFoerigenModel(model , list)
+        },
+
+        // 跳转到外键model，选择node
+        toFoerigenModel(model,list){
+            
+            var temp = []
+            for (var i=0; i <list.length ; i++ )
+                temp.push(list[i]._id)
+            var foreignIdList = JSON.stringify( temp )
+
             wx.navigateTo({
-                url: '/pages/list/list?isForeign=true&model=' + model,
+                url: `/pages/list/list?isForeign=true&model=${model}&foreignIdList=${foreignIdList}`,
             })
         },
 
@@ -80,6 +90,7 @@ module.exports = Behavior({
             var current = this.data.foreignCurrentEditor
             var node = this.data.node
             
+            
             if (current.type == "foreign"){
                 var nodeKey = app.getNodeKey(node, current.key)
                 this.setData({
@@ -93,6 +104,7 @@ module.exports = Behavior({
                 node[current.foreignListKey].push(_id)
                 console.log('{"' + current.foreignItemKey + '" : "' + name + '" }', current.foreignListKey)
                 var obj = JSON.parse( '{"'+current.foreignItemKey + '" : "'+name+'" }')
+                obj["_id"] = _id
                 node[current.key].push(obj)
                 this.setData({
                     node:node

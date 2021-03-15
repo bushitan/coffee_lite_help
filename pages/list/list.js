@@ -38,11 +38,16 @@ Component({
         onLoad(options) {
             
             this.setData({ 
-                model: options.model || "admin",
+                model: options.model || "",
                 isForeign: options.isForeign == 'true'? true : false,
                 isSearch: options.isSearch == 'true'? true : false,
                 foreignIdList: options.foreignIdList ? JSON.parse( options.foreignIdList ) : [] ,
             })
+
+            if( this.data.model == ""){
+                wx.showModal({  title:"为传入model为空" ,success:()=> wx.navigateBack()})
+                return 
+            }
             this.onInit()
         },
 
@@ -135,6 +140,7 @@ Component({
                             var _id = res.data  // 增加的ID
                             console.log(_id )
                             this.getList()
+                            this.toEditorNode(_id)
                         })
                     }
                 }
@@ -149,8 +155,11 @@ Component({
             // console.log(e.currentTarget.dataset.detail_id)
             var nodeId = e.currentTarget.dataset.node_id
             // var url = this.data.rule.detailUrl + "?detail_id=" + detailId
-            var url = "/pages/node/node?detail_id=" + nodeId
- 
+            this.toEditorNode(nodeId)
+        },
+
+        toEditorNode(nodeId){
+            var url = `/pages/node/node?model=${this.data.model}&node_id=${nodeId}`
             wx.navigateTo({
                 url: url,
             })

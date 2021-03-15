@@ -39,6 +39,8 @@
             </form>
         </view>
     </view>
+    <view class="pg-space-xxl"></view>
+    <view class="pg-space-xxl"></view>
 
     <include src="wxml/footer.wxml"></include>
 

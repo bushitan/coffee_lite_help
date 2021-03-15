@@ -1,7 +1,7 @@
 
 
     
-    <view class="cu-bar  foot  justify-center text-xl">
+    <view class="cu-bar bg-white  foot  justify-center text-xl">
         <text class="cuIcon-back bg-gray text-gray margin-right-xs" hidden="{{pageIndex == 0}}" catchtap="backPage"></text>
         <text class="">{{pageIndex + 1}}..</text>    
         <text class="text-gray text-sm">共{{pageCount}}页</text>

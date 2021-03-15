@@ -75,14 +75,24 @@ Component({
         onLoad(options){ 
 
             this.setData({
-                model: options.model || "admin",
-                _id: options.node_id || "79550af260435f87089d72cd7e4db0a2",
+                model: options.model || "",
+                _id: options.node_id || "",
             })
 
             var rule = app.admin.map[this.data.model]
             this.setData({
                 rule: rule,
             })
+            
+            if( this.data.model == ""){
+                wx.showModal({  title:"为传入model为空" ,success:()=> wx.navigateBack()})               
+                return 
+            }
+            
+            if( this.data._id == ""){
+                wx.showModal({  title:"为传入id为空",success:()=> wx.navigateBack() }) 
+                return 
+            }
 
             this.onInit()
         },
@@ -153,15 +163,14 @@ Component({
         // 保存
         async save(){
 
-            //更新
-            debugger
+            //更新            
             var res = await app.admin.updateNode( this.data.model,this.data._id,  this.data.node)
             console.log(res)
         },
 
         // 保存并返回
-        saveBack(){
-
+        async saveBack(){
+            await  this.save()
             //TODO 更新上一页面list
             var prePage = getCurrentPages()[getCurrentPages().length - 2]
             prePage.updateNodeCallback() // 保存后,更新前边的list
